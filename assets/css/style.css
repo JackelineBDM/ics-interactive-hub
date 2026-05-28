@@ -1,10 +1,8 @@
 /* =============================================
    ICS Risk Assessment Hub - Custom Styles
    Industrial Dark Theme for Plant Floor Use
-   High contrast + safety/warning accents
    ============================================= */
 
-/* Root Variables - Easy to maintain */
 :root {
     --bg-dark: #001f3f;
     --bg-card: #00274c;
@@ -74,15 +72,48 @@ h1, h2, h3, h4 {
 .btn-warning:hover {
     background-color: #ffe066;
     transform: translateY(-2px);
-    color: #001f3f;
 }
 
-.btn-lg {
-    padding: 12px 32px;
-    font-size: 1.1rem;
+/* Checklist Specific Fixes */
+#checklist-container {
+    color: #f8f9fa !important;
 }
 
-/* Questionnaire & Results */
+#checklist-container .form-check-label {
+    color: #f8f9fa !important;
+    font-size: 1.05rem;
+    line-height: 1.5;
+}
+
+#checklist-container .form-check {
+    padding: 12px 15px;
+    border-radius: 8px;
+    margin-bottom: 8px;
+    background-color: #00274c;
+    border: 1px solid rgba(255, 203, 5, 0.2);
+}
+
+#checklist-container .form-check:hover {
+    background-color: #003d66;
+    border-color: #ffcb05;
+}
+
+#checklist-container .form-check-input {
+    accent-color: #ffcb05;
+    transform: scale(1.1);
+}
+
+/* Progress Bar */
+.progress {
+    height: 12px;
+    background-color: #003d66;
+}
+
+.progress-bar {
+    background-color: #ffcb05;
+}
+
+/* Questionnaire */
 #questionnaire-container .form-check {
     margin-bottom: 1.25rem;
     padding: 12px;
@@ -92,11 +123,6 @@ h1, h2, h3, h4 {
 
 #questionnaire-container .form-check:hover {
     background-color: rgba(255, 203, 5, 0.1);
-}
-
-.form-check-input:checked {
-    background-color: var(--accent-warning);
-    border-color: var(--accent-warning);
 }
 
 /* Results Area */
@@ -137,12 +163,5 @@ footer {
     
     .card {
         margin-bottom: 1.5rem;
-    }
-}
-
-/* High contrast enhancements for plant floor visibility */
-@media (max-width: 576px) {
-    .navbar-brand {
-        font-size: 1.35rem;
     }
 }
