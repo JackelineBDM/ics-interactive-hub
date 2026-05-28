@@ -1,15 +1,15 @@
 /* =============================================
-   ICS Risk Assessment Hub - FINAL SOFT VERSION
-   Softer gray text for better eye comfort
+   ICS Risk Assessment Hub - DISTINCTION LEVEL
+   Soft, professional, eye-friendly theme
    ============================================= */
 
 :root {
-    --bg-dark: #001f3f;
-    --bg-card: #00274c;
-    --accent-warning: #ffcb05;
-    --text-light: #d4dce8;           /* Softer gray-white */
-    --text-muted: #adb5bd;
-    --border-color: #ffcb05;
+    --bg-dark: #0f172a;
+    --bg-card: #1e2937;
+    --accent-warning: #facc15;
+    --text-light: #e2e8f0;        /* Soft, comfortable off-white */
+    --text-muted: #94a3b8;
+    --border-color: #facc15;
 }
 
 /* Global */
@@ -17,16 +17,18 @@ body {
     background-color: var(--bg-dark);
     color: var(--text-light);
     font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    line-height: 1.6;
 }
 
 /* Navbar */
 .navbar {
-    background-color: #001f3f !important;
+    background-color: #0f172a !important;
     border-bottom: 3px solid var(--accent-warning) !important;
 }
 
 .navbar-brand {
     color: var(--accent-warning) !important;
+    font-weight: 700;
 }
 
 /* Cards */
@@ -36,48 +38,61 @@ body {
     border-radius: 12px;
 }
 
-/* CHECKLIST - Softer & More Comfortable */
+/* CHECKLIST - Soft & Professional */
 #checklist-container .form-check {
-    padding: 16px 18px;
+    padding: 16px 20px;
     margin-bottom: 10px;
-    background-color: #001f3f;
-    border: 1px solid rgba(255, 203, 5, 0.25);
+    background-color: var(--bg-card);
+    border: 1px solid rgba(250, 204, 21, 0.25);
     border-radius: 10px;
+    transition: all 0.25s ease;
 }
 
 #checklist-container .form-check:hover {
-    background-color: #002b55;
-    border-color: #ffcb05;
+    background-color: #334155;
+    border-color: var(--accent-warning);
 }
 
 #checklist-container .form-check-label {
     color: var(--text-light) !important;
-    font-size: 1.06rem;
+    font-size: 1.07rem;
     line-height: 1.55;
 }
 
 #checklist-container .form-check-input {
-    accent-color: #ffcb05;
+    accent-color: var(--accent-warning);
     transform: scale(1.15);
 }
 
 /* Progress Bar */
 .progress {
     height: 14px;
-    background-color: #00305e;
+    background-color: #334155;
 }
 
 .progress-bar {
-    background-color: #ffcb05;
+    background-color: var(--accent-warning);
 }
 
 /* Buttons */
 .btn-warning {
     background-color: var(--accent-warning);
-    color: #001f3f;
+    color: #0f172a;
     font-weight: 700;
 }
 
+.btn-warning:hover {
+    background-color: #fde047;
+}
+
+/* Utility */
 .lead {
     color: var(--text-muted);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    h1.display-4 {
+        font-size: 2.25rem;
+    }
 }
