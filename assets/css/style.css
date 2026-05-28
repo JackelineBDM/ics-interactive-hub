@@ -1,13 +1,13 @@
 /* =============================================
-   ICS Risk Assessment Hub - DISTINCTION LEVEL
-   Soft, professional, eye-friendly theme
+   ICS Risk Assessment Hub - ULTRA SOFT FINAL STYLES
+   Even softer text for maximum eye comfort
    ============================================= */
 
 :root {
     --bg-dark: #0f172a;
     --bg-card: #1e2937;
     --accent-warning: #facc15;
-    --text-light: #e2e8f0;        /* Soft, comfortable off-white */
+    --text-light: #cbd5e1;        /* Very soft, muted gray-white */
     --text-muted: #94a3b8;
     --border-color: #facc15;
 }
@@ -28,7 +28,6 @@ body {
 
 .navbar-brand {
     color: var(--accent-warning) !important;
-    font-weight: 700;
 }
 
 /* Cards */
@@ -38,12 +37,12 @@ body {
     border-radius: 12px;
 }
 
-/* CHECKLIST - Soft & Professional */
+/* CHECKLIST - Extra Soft */
 #checklist-container .form-check {
     padding: 16px 20px;
     margin-bottom: 10px;
-    background-color: var(--bg-card);
-    border: 1px solid rgba(250, 204, 21, 0.25);
+    background-color: #1e2937;
+    border: 1px solid rgba(250, 204, 21, 0.2);
     border-radius: 10px;
     transition: all 0.25s ease;
 }
@@ -56,7 +55,7 @@ body {
 #checklist-container .form-check-label {
     color: var(--text-light) !important;
     font-size: 1.07rem;
-    line-height: 1.55;
+    line-height: 1.6;
 }
 
 #checklist-container .form-check-input {
@@ -81,18 +80,6 @@ body {
     font-weight: 700;
 }
 
-.btn-warning:hover {
-    background-color: #fde047;
-}
-
-/* Utility */
 .lead {
     color: var(--text-muted);
-}
-
-/* Responsive */
-@media (max-width: 768px) {
-    h1.display-4 {
-        font-size: 2.25rem;
-    }
 }
