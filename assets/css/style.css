@@ -1,6 +1,6 @@
 /* =============================================
-   ICS Risk Assessment Hub - Custom Styles
-   Industrial Dark Theme for Plant Floor Use
+   ICS Risk Assessment Hub - FINAL STYLES
+   Distinction-Level Industrial Dark Theme
    ============================================= */
 
 :root {
@@ -12,7 +12,7 @@
     --border-color: #ffcb05;
 }
 
-/* Global Styles */
+/* Global */
 body {
     background-color: var(--bg-dark);
     color: var(--text-light);
@@ -32,7 +32,8 @@ h1, h2, h3, h4 {
 
 .navbar-brand {
     color: var(--accent-warning) !important;
-    font-size: 1.5rem;
+    font-size: 1.55rem;
+    font-weight: 700;
 }
 
 .nav-link {
@@ -50,7 +51,7 @@ h1, h2, h3, h4 {
     background-color: var(--bg-card);
     border: 2px solid var(--border-color);
     border-radius: 12px;
-    box-shadow: 0 4px 15px rgba(255, 203, 5, 0.15);
+    box-shadow: 0 4px 20px rgba(255, 203, 5, 0.15);
 }
 
 .card-header {
@@ -58,6 +59,46 @@ h1, h2, h3, h4 {
     border-bottom: 2px solid var(--accent-warning) !important;
     color: var(--text-light);
     font-weight: 600;
+}
+
+/* Checklist - Clean & Professional */
+#checklist-container .form-check {
+    padding: 16px 18px;
+    margin-bottom: 10px;
+    background-color: #00305e;
+    border: 1px solid rgba(255, 203, 5, 0.25);
+    border-radius: 10px;
+    transition: all 0.25s ease;
+}
+
+#checklist-container .form-check:hover {
+    background-color: #004080;
+    border-color: var(--accent-warning);
+    transform: translateX(4px);
+}
+
+#checklist-container .form-check-label {
+    color: #f8f9fa !important;
+    font-size: 1.08rem;
+    line-height: 1.5;
+}
+
+#checklist-container .form-check-input {
+    accent-color: #ffcb05;
+    transform: scale(1.2);
+    margin-right: 12px;
+}
+
+/* Progress Bar */
+.progress {
+    height: 14px;
+    background-color: #00305e;
+    border-radius: 50px;
+}
+
+.progress-bar {
+    background-color: var(--accent-warning);
+    border-radius: 50px;
 }
 
 /* Buttons */
@@ -74,50 +115,11 @@ h1, h2, h3, h4 {
     transform: translateY(-2px);
 }
 
-/* Checklist Specific Fixes */
-#checklist-container {
-    color: #f8f9fa !important;
-}
-
-#checklist-container .form-check-label {
-    color: #f8f9fa !important;
-    font-size: 1.05rem;
-    line-height: 1.5;
-}
-
-#checklist-container .form-check {
-    padding: 12px 15px;
-    border-radius: 8px;
-    margin-bottom: 8px;
-    background-color: #00274c;
-    border: 1px solid rgba(255, 203, 5, 0.2);
-}
-
-#checklist-container .form-check:hover {
-    background-color: #003d66;
-    border-color: #ffcb05;
-}
-
-#checklist-container .form-check-input {
-    accent-color: #ffcb05;
-    transform: scale(1.1);
-}
-
-/* Progress Bar */
-.progress {
-    height: 12px;
-    background-color: #003d66;
-}
-
-.progress-bar {
-    background-color: #ffcb05;
-}
-
-/* Questionnaire */
+/* Risk Calculator */
 #questionnaire-container .form-check {
     margin-bottom: 1.25rem;
-    padding: 12px;
-    border-radius: 8px;
+    padding: 14px;
+    border-radius: 10px;
     transition: background-color 0.2s;
 }
 
@@ -125,7 +127,7 @@ h1, h2, h3, h4 {
     background-color: rgba(255, 203, 5, 0.1);
 }
 
-/* Results Area */
+/* Results */
 #results-content {
     animation: fadeIn 0.6s ease forwards;
 }
@@ -135,33 +137,19 @@ h1, h2, h3, h4 {
     to { opacity: 1; }
 }
 
-/* Risk Level Badges */
-.risk-low    { background-color: #28a745; }
-.risk-medium { background-color: #ffc107; color: #001f3f; }
-.risk-high   { background-color: #dc3545; }
-
 /* Footer */
 footer {
     border-top: 3px solid var(--accent-warning);
 }
 
 /* Utility */
-.text-warning {
-    color: var(--accent-warning) !important;
-}
-
 .lead {
-    font-weight: 400;
     color: var(--text-muted);
 }
 
-/* Responsive Adjustments */
+/* Responsive */
 @media (max-width: 768px) {
     h1.display-4 {
-        font-size: 2.2rem;
-    }
-    
-    .card {
-        margin-bottom: 1.5rem;
+        font-size: 2.3rem;
     }
 }
