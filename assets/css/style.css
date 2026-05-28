@@ -1,13 +1,13 @@
 /* =============================================
-   ICS Risk Assessment Hub - FINAL COHESIVE STYLES
-   Darker blue cards matching navbar + soft text
+   ICS Risk Assessment Hub - FINAL REFINED STYLES
+   Navbar darker + Cards slightly lighter blue
    ============================================= */
 
 :root {
-    --bg-dark: #001427;
-    --bg-card: #001f3f;           /* Matches navbar blue, slightly darker */
+    --bg-dark: #001427;           /* Navbar - very dark blue */
+    --bg-card: #00223f;           /* Checklist cards - slightly lighter blue */
     --accent-warning: #ffcb05;
-    --text-light: #d4dce8;        /* Soft, comfortable text */
+    --text-light: #d4dce8;        /* Soft comfortable text */
     --text-muted: #94a3b8;
     --border-color: #ffcb05;
 }
@@ -22,7 +22,7 @@ body {
 
 /* Navbar */
 .navbar {
-    background-color: #001427 !important;
+    background-color: var(--bg-dark) !important;
     border-bottom: 3px solid var(--accent-warning) !important;
 }
 
@@ -37,18 +37,18 @@ body {
     border-radius: 12px;
 }
 
-/* CHECKLIST - Darker blue matching navbar */
+/* CHECKLIST */
 #checklist-container .form-check {
     padding: 16px 18px;
     margin-bottom: 10px;
-    background-color: #001f3f;
+    background-color: var(--bg-card);
     border: 1px solid rgba(255, 203, 5, 0.25);
     border-radius: 10px;
     transition: all 0.25s ease;
 }
 
 #checklist-container .form-check:hover {
-    background-color: #002b55;
+    background-color: #00305e;
     border-color: #ffcb05;
 }
 
@@ -66,7 +66,7 @@ body {
 /* Progress Bar */
 .progress {
     height: 14px;
-    background-color: #002b55;
+    background-color: #00305e;
 }
 
 .progress-bar {
@@ -80,7 +80,6 @@ body {
     font-weight: 700;
 }
 
-/* Utility */
 .lead {
     color: var(--text-muted);
 }
