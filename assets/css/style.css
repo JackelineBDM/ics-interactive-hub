@@ -1,13 +1,13 @@
 /* =============================================
-   ICS Risk Assessment Hub - FINAL DISTINCTION STYLES
-   Softened Checklist + Better Contrast
+   ICS Risk Assessment Hub - FINAL SOFTENED STYLES
+   Distinction Level - Softer & More Comfortable
    ============================================= */
 
 :root {
     --bg-dark: #001f3f;
     --bg-card: #00274c;
     --accent-warning: #ffcb05;
-    --text-light: #f8f9fa;
+    --text-light: #f0f4f8;
     --text-muted: #adb5bd;
     --border-color: #ffcb05;
 }
@@ -17,10 +17,7 @@ body {
     background-color: var(--bg-dark);
     color: var(--text-light);
     font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
-}
-
-h1, h2, h3, h4 {
-    font-weight: 700;
+    line-height: 1.6;
 }
 
 /* Navbar */
@@ -40,24 +37,25 @@ h1, h2, h3, h4 {
     border-radius: 12px;
 }
 
-/* CHECKLIST - Softer & More Professional */
+/* CHECKLIST - Softer & Easier on Eyes */
 #checklist-container .form-check {
     padding: 16px 18px;
     margin-bottom: 10px;
-    background-color: #00274c;           /* Darker, less bright blue */
-    border: 1px solid rgba(255, 203, 5, 0.25);
+    background-color: #00213f;        /* Softer, darker blue */
+    border: 1px solid rgba(255, 203, 5, 0.2);
     border-radius: 10px;
     transition: all 0.25s ease;
 }
 
 #checklist-container .form-check:hover {
-    background-color: #003d66;
+    background-color: #00305e;
     border-color: #ffcb05;
 }
 
 #checklist-container .form-check-label {
-    color: #f0f4f8 !important;           /* Slightly softer white */
+    color: #f0f4f8 !important;        /* Soft off-white */
     font-size: 1.06rem;
+    line-height: 1.5;
 }
 
 #checklist-container .form-check-input {
@@ -75,16 +73,14 @@ h1, h2, h3, h4 {
     background-color: #ffcb05;
 }
 
-/* Other elements */
+/* Buttons */
 .btn-warning {
     background-color: var(--accent-warning);
     color: #001f3f;
     font-weight: 700;
 }
 
+/* Utility */
 .lead {
     color: var(--text-muted);
 }
-
-/* Utility */
-.text-warning { color: var(--accent-warning) !important; }
