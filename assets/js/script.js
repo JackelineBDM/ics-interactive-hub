@@ -57,20 +57,26 @@ document.addEventListener('DOMContentLoaded', () => {
 
             questions.forEach(q => {
                 const selected = document.querySelector(`input[name="q${q.id}"]:checked`);
-                if (selected && selected.value === "yes") totalScore += q.points;
+                if (selected && selected.value === "yes") {
+                    totalScore += q.points;
+                }
             });
 
             const percentage = Math.round((totalScore / maxScore) * 100);
+            
             let riskLevel = '', riskColor = '', recommendation = '';
 
             if (percentage >= 80) {
-                riskLevel = 'LOW RISK'; riskColor = 'success';
+                riskLevel = 'LOW RISK';
+                riskColor = 'success';
                 recommendation = 'Excellent SL2 posture. Maintain current controls and continue regular reviews.';
             } else if (percentage >= 60) {
-                riskLevel = 'MEDIUM RISK'; riskColor = 'warning';
+                riskLevel = 'MEDIUM RISK';
+                riskColor = 'warning';
                 recommendation = 'Moderate risk identified. Prioritise segmentation and access control improvements.';
             } else {
-                riskLevel = 'HIGH RISK'; riskColor = 'danger';
+                riskLevel = 'HIGH RISK';
+                riskColor = 'danger';
                 recommendation = 'Significant gaps detected. Immediate action required on zoning, conduits and access controls.';
             }
 
@@ -94,7 +100,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
         window.saveAssessment = function() {
             const scoreData = calculateScore();
-            const assessment = { date: new Date().toISOString(), score: scoreData.percentage, riskLevel: scoreData.riskLevel };
+            const assessment = {
+                date: new Date().toISOString(),
+                score: scoreData.percentage,
+                riskLevel: scoreData.riskLevel
+            };
             localStorage.setItem('icsRiskAssessment', JSON.stringify(assessment));
             alert('Assessment saved successfully!');
         };
@@ -109,6 +119,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // ====================== THREAT MATRIX (threats.html) ======================
     if (document.getElementById('threat-table')) {
+
         const threatsData = [
             { id: 1, threat: "Ransomware", description: "Malicious software that encrypts critical OT systems and demands payment.", purdueLevel: "0-1, 2", impact: "High" },
             { id: 2, threat: "Stuxnet-style Worm", description: "Targeted malware that damages physical industrial equipment (PLCs).", purdueLevel: "0-1", impact: "Critical" },
@@ -185,7 +196,6 @@ document.addEventListener('DOMContentLoaded', () => {
             });
             checklistContainer.innerHTML = html;
 
-            // Add event listeners
             checklistContainer.querySelectorAll('input[type="checkbox"]').forEach(checkbox => {
                 checkbox.addEventListener('change', updateProgress);
             });
@@ -199,19 +209,17 @@ document.addEventListener('DOMContentLoaded', () => {
             progressBar.style.width = `${percentage}%`;
             progressText.textContent = `${checkedCount}/${total} controls (${percentage}%)`;
 
-            // Save to localStorage
-            checklistItems.forEach((item, index) => {
+            checklistItems.forEach(item => {
                 item.completed = document.getElementById(`item-${item.id}`).checked;
             });
             localStorage.setItem('sl2Checklist', JSON.stringify(checklistItems));
         }
 
-        // Load saved progress
         function loadSavedProgress() {
             const saved = localStorage.getItem('sl2Checklist');
             if (saved) {
                 const savedData = JSON.parse(saved);
-                savedData.forEach((savedItem) => {
+                savedData.forEach(savedItem => {
                     const item = checklistItems.find(i => i.id === savedItem.id);
                     if (item) item.completed = savedItem.completed;
                 });
@@ -220,8 +228,16 @@ document.addEventListener('DOMContentLoaded', () => {
 
         loadSavedProgress();
         renderChecklist();
-        updateProgress(); // Show initial progress
+        updateProgress();
     }
+
+    // ====================== RESET CHECKLIST FUNCTION ======================
+    window.resetChecklist = function() {
+        if (confirm('Are you sure you want to reset the entire checklist?')) {
+            localStorage.removeItem('sl2Checklist');
+            location.reload();
+        }
+    };
 
     // ====================== GLOBAL INITIALIZATION ======================
     console.log('ICS Risk Hub JavaScript fully initialized');
