@@ -1,15 +1,15 @@
 /* =============================================
-   ICS Risk Assessment Hub - ULTRA SOFT FINAL STYLES
-   Even softer text for maximum eye comfort
+   ICS Risk Assessment Hub - FINAL BALANCED STYLES
+   Blue cards + Softer text for eye comfort
    ============================================= */
 
 :root {
-    --bg-dark: #0f172a;
-    --bg-card: #1e2937;
-    --accent-warning: #facc15;
-    --text-light: #cbd5e1;        /* Very soft, muted gray-white */
+    --bg-dark: #001f3f;
+    --bg-card: #00274c;           /* Nice blue you liked */
+    --accent-warning: #ffcb05;
+    --text-light: #d4dce8;        /* Softer, less bright white */
     --text-muted: #94a3b8;
-    --border-color: #facc15;
+    --border-color: #ffcb05;
 }
 
 /* Global */
@@ -22,7 +22,7 @@ body {
 
 /* Navbar */
 .navbar {
-    background-color: #0f172a !important;
+    background-color: #001f3f !important;
     border-bottom: 3px solid var(--accent-warning) !important;
 }
 
@@ -37,49 +37,62 @@ body {
     border-radius: 12px;
 }
 
-/* CHECKLIST - Extra Soft */
+/* CHECKLIST - Blue cards you liked */
 #checklist-container .form-check {
-    padding: 16px 20px;
+    padding: 16px 18px;
     margin-bottom: 10px;
-    background-color: #1e2937;
-    border: 1px solid rgba(250, 204, 21, 0.2);
+    background-color: #00274c;
+    border: 1px solid rgba(255, 203, 5, 0.25);
     border-radius: 10px;
     transition: all 0.25s ease;
 }
 
 #checklist-container .form-check:hover {
-    background-color: #334155;
-    border-color: var(--accent-warning);
+    background-color: #003d66;
+    border-color: #ffcb05;
 }
 
 #checklist-container .form-check-label {
     color: var(--text-light) !important;
-    font-size: 1.07rem;
-    line-height: 1.6;
+    font-size: 1.06rem;
+    line-height: 1.55;
 }
 
 #checklist-container .form-check-input {
-    accent-color: var(--accent-warning);
+    accent-color: #ffcb05;
     transform: scale(1.15);
 }
 
 /* Progress Bar */
 .progress {
     height: 14px;
-    background-color: #334155;
+    background-color: #00305e;
 }
 
 .progress-bar {
-    background-color: var(--accent-warning);
+    background-color: #ffcb05;
+}
+
+/* Risk Calculator Questions */
+#questionnaire-container .form-check {
+    margin-bottom: 1.25rem;
+    padding: 14px;
+    border-radius: 10px;
+    background-color: #00274c;
+}
+
+#questionnaire-container .form-check-label {
+    color: var(--text-light) !important;
 }
 
 /* Buttons */
 .btn-warning {
     background-color: var(--accent-warning);
-    color: #0f172a;
+    color: #001f3f;
     font-weight: 700;
 }
 
+/* Utility */
 .lead {
     color: var(--text-muted);
 }
