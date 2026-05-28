@@ -1,13 +1,13 @@
 /* =============================================
    ICS Risk Assessment Hub - FINAL SOFT VERSION
-   Softer text + reduced eye strain
+   Softer gray text for better eye comfort
    ============================================= */
 
 :root {
     --bg-dark: #001f3f;
     --bg-card: #00274c;
     --accent-warning: #ffcb05;
-    --text-light: #e0e6f0;          /* Softer, less bright white */
+    --text-light: #d4dce8;           /* Softer gray-white */
     --text-muted: #adb5bd;
     --border-color: #ffcb05;
 }
@@ -36,11 +36,11 @@ body {
     border-radius: 12px;
 }
 
-/* CHECKLIST - Softer & Easier on Eyes */
+/* CHECKLIST - Softer & More Comfortable */
 #checklist-container .form-check {
     padding: 16px 18px;
     margin-bottom: 10px;
-    background-color: #001f3f;        /* Much darker background */
+    background-color: #001f3f;
     border: 1px solid rgba(255, 203, 5, 0.25);
     border-radius: 10px;
 }
@@ -51,7 +51,7 @@ body {
 }
 
 #checklist-container .form-check-label {
-    color: #e0e6f0 !important;        /* Soft, comfortable white */
+    color: var(--text-light) !important;
     font-size: 1.06rem;
     line-height: 1.55;
 }
