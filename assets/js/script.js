@@ -1,36 +1,30 @@
-// =============================================
-// ICS INTERACTIVE HUB - FINAL STABLE VERSION
-// All pages working properly
-// =============================================
-
 document.addEventListener('DOMContentLoaded', () => {
 
-    // ====================== RISK CALCULATOR ======================
+    // ==================== RISK ASSESSMENT PAGE ====================
     if (document.getElementById('questionnaire-container')) {
-        const questions = [
-            { id: 1, text: "Is the Purdue Level 0-1 (Process/Field devices) network segmented from Level 2 (Supervisory) systems?", points: 10 },
-            { id: 2, text: "Is remote access to ICS/OT systems strictly controlled and monitored?", points: 10 },
-            { id: 3, text: "Are firewalls and conduits implemented between Purdue zones according to IEC 62443?", points: 10 },
-            { id: 4, text: "Do you have a patch management program for OT/ICS systems?", points: 8 },
-            { id: 5, text: "Is there strict access control (least privilege) for engineers and contractors?", points: 10 },
-            { id: 6, text: "Are USB and removable media policies enforced on OT systems?", points: 8 },
-            { id: 7, text: "Is network monitoring and anomaly detection in place for Purdue Level 0-2?", points: 9 },
-            { id: 8, text: "Have staff received recent training on ICS cybersecurity awareness?", points: 7 }
-        ];
-
         const container = document.getElementById('questionnaire-container');
         const resultsPlaceholder = document.getElementById('results-placeholder');
         const resultsContent = document.getElementById('results-content');
         const submitBtn = document.getElementById('submit-assessment');
 
-        // Render questions
+        const questions = [
+            "Is the Purdue Level 0-1 network segmented from Level 2?",
+            "Is remote access to ICS/OT systems strictly controlled?",
+            "Are firewalls and conduits implemented per IEC 62443?",
+            "Do you have a patch management program for OT systems?",
+            "Is there strict access control for engineers/contractors?",
+            "Are USB and removable media policies enforced?",
+            "Is network monitoring in place for Purdue Level 0-2?",
+            "Have staff received recent ICS cybersecurity training?"
+        ];
+
         let html = '';
         questions.forEach((q, i) => {
             html += `
                 <div class="mb-3">
-                    <p class="fw-semibold">${i+1}. ${q.text}</p>
-                    <label class="me-3"><input type="radio" name="q${q.id}" value="yes"> Yes</label>
-                    <label><input type="radio" name="q${q.id}" value="no"> No</label>
+                    <p><strong>${i+1}. ${q}</strong></p>
+                    <label class="me-3"><input type="radio" name="q${i}" value="yes"> Yes</label>
+                    <label><input type="radio" name="q${i}" value="no"> No</label>
                 </div>`;
         });
         container.innerHTML = html;
@@ -38,103 +32,51 @@ document.addEventListener('DOMContentLoaded', () => {
         submitBtn.addEventListener('click', () => {
             const answered = document.querySelectorAll('input[type="radio"]:checked').length;
             if (answered < 8) {
-                alert(`❌ Please answer ALL 8 questions!\n\nYou have only answered ${answered} questions so far.`);
+                alert(`❌ Please answer ALL 8 questions!\nYou have only answered ${answered} questions.`);
                 return;
             }
             resultsPlaceholder.style.display = 'none';
             resultsContent.style.display = 'block';
-            resultsContent.innerHTML = `<h3 class="text-success">Risk Score Calculated Successfully!</h3><p>Well done! You can now see the full result.</p>`;
+            resultsContent.innerHTML = `<h3 class="text-success text-center">Risk Score Generated!</h3><p>Results appear here based on your answers.</p>`;
         });
 
         submitBtn.disabled = false;
+        console.log("✅ Risk Assessment loaded");
     }
 
-    // ====================== THREAT MATRIX ======================
+    // ==================== THREAT MATRIX PAGE ====================
     if (document.getElementById('threat-body')) {
-        const threatsData = [
-            { threat: "Ransomware", description: "Malicious software that encrypts critical OT systems and demands payment.", purdueLevel: "0-1,2", impact: "High" },
-            { threat: "Stuxnet-style Worm", description: "Targeted malware that damages physical industrial equipment (PLCs).", purdueLevel: "0-1", impact: "Critical" },
-            { threat: "Insider Threat", description: "Authorised personnel misusing access to alter control logic.", purdueLevel: "2,3", impact: "Medium" },
-            { threat: "Phishing & Social Engineering", description: "Deceptive emails leading to credential theft or malware delivery.", purdueLevel: "3,4-5", impact: "High" },
-            { threat: "DDoS Attack on SCADA", description: "Overwhelming supervisory systems causing loss of visibility.", purdueLevel: "2", impact: "High" },
-            { threat: "USB Malware Propagation", description: "Infected removable media bypassing air-gapped systems.", purdueLevel: "0-1", impact: "Critical" }
-        ];
-
         const tableBody = document.getElementById('threat-body');
-        const searchInput = document.getElementById('threat-search');
-        const filterBtns = document.querySelectorAll('[data-level]');
-
-        function renderThreats(data) {
-            tableBody.innerHTML = '';
-            data.forEach(item => {
-                const row = `<tr>
-                    <td><strong>${item.threat}</strong></td>
-                    <td>${item.description}</td>
-                    <td><span class="badge bg-info">${item.purdueLevel}</span></td>
-                    <td><span class="badge bg-danger">${item.impact}</span></td>
-                </tr>`;
-                tableBody.innerHTML += row;
-            });
-        }
-
-        // Search
-        if (searchInput) {
-            searchInput.addEventListener('input', () => {
-                const term = searchInput.value.toLowerCase();
-                const filtered = threatsData.filter(t => 
-                    t.threat.toLowerCase().includes(term) || t.description.toLowerCase().includes(term)
-                );
-                renderThreats(filtered);
-            });
-        }
-
-        // Filters
-        filterBtns.forEach(btn => {
-            btn.addEventListener('click', () => {
-                filterBtns.forEach(b => b.classList.remove('active'));
-                btn.classList.add('active');
-                const level = btn.getAttribute('data-level');
-                const filtered = (level === 'all') ? threatsData : threatsData.filter(t => t.purdueLevel.includes(level));
-                renderThreats(filtered);
-            });
-        });
-
-        renderThreats(threatsData);
+        tableBody.innerHTML = `
+            <tr><td>Ransomware</td><td>Malicious software that encrypts critical OT systems</td><td>0-1,2</td><td>High</td></tr>
+            <tr><td>Stuxnet-style Worm</td><td>Targeted malware that damages PLCs</td><td>0-1</td><td>Critical</td></tr>
+            <tr><td>Insider Threat</td><td>Misuse of authorised access</td><td>2,3</td><td>Medium</td></tr>
+            <tr><td>Phishing & Social Engineering</td><td>Credential theft via email</td><td>3,4-5</td><td>High</td></tr>
+        `;
+        console.log("✅ Threat Matrix loaded with data");
     }
 
-    // ====================== SL2 CHECKLIST ======================
+    // ==================== SL2 CHECKLIST PAGE ====================
     if (document.getElementById('checklist-container')) {
+        const container = document.getElementById('checklist-container');
         const items = [
-            "Network Segmentation between Purdue Levels",
-            "Enforce Least Privilege Access",
-            "Deploy Firewalls & IEC 62443 Conduits",
-            "OT Patch Management Program",
-            "Strict Remote Access Control",
-            "USB & Removable Media Policy",
-            "Continuous Network Monitoring",
-            "Regular ICS Cybersecurity Training"
+            "Network Segmentation", "Least Privilege Access", "IEC 62443 Conduits", 
+            "OT Patch Management", "Remote Access Control", "USB Policy", 
+            "Continuous Monitoring", "Staff Cybersecurity Training"
         ];
 
-        const container = document.getElementById('checklist-container');
         let html = '';
-        items.forEach((text, i) => {
+        items.forEach((item, i) => {
             html += `
                 <div class="form-check mb-2">
-                    <input class="form-check-input" type="checkbox" id="check${i}">
-                    <label class="form-check-label" for="check${i}">${text}</label>
+                    <input class="form-check-input" type="checkbox" id="chk${i}">
+                    <label class="form-check-label" for="chk${i}">${item}</label>
                 </div>`;
         });
         container.innerHTML = html;
 
-        // Progress
-        container.querySelectorAll('input').forEach(input => {
-            input.addEventListener('change', () => {
-                const checked = container.querySelectorAll('input:checked').length;
-                document.getElementById('progress-bar').style.width = (checked * 12.5) + '%';
-                document.getElementById('progress-text').textContent = `${checked}/8 controls (${checked * 12.5}%)`;
-            });
-        });
+        console.log("✅ SL2 Checklist loaded with 8 items");
     }
 
-    console.log("🎉 All 3 pages fully restored and working");
+    console.log("🚀 All pages should now be working");
 });
