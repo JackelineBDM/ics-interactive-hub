@@ -1,12 +1,12 @@
 // =============================================
-// ICS Risk Assessment Hub - COMPLETE & FIXED
+// ICS Risk Assessment Hub - COMPLETE FINAL VERSION
+// All 3 pages working + fixed validation
 // =============================================
 
 document.addEventListener('DOMContentLoaded', () => {
 
-    // ====================== RISK CALCULATOR (index.html) ======================
+    // ====================== RISK CALCULATOR ======================
     if (document.getElementById('questionnaire-container')) {
-
         const questions = [
             { id: 1, text: "Is the Purdue Level 0-1 (Process/Field devices) network segmented from Level 2 (Supervisory) systems?", points: 10 },
             { id: 2, text: "Is remote access to ICS/OT systems strictly controlled and monitored?", points: 10 },
@@ -43,68 +43,105 @@ document.addEventListener('DOMContentLoaded', () => {
             questionnaireContainer.innerHTML = html;
         }
 
-        // FIXED VALIDATION - Shows message even if some questions are answered
         submitBtn.addEventListener('click', () => {
             const answered = document.querySelectorAll('input[type="radio"]:checked').length;
-
             if (answered < questions.length) {
                 const remaining = questions.length - answered;
-                alert(`❌ Please complete all questions!\n\nYou have answered ${answered} out of 8.\nPlease answer the remaining ${remaining} question(s).`);
+                alert(`❌ Please answer all questions!\n\nYou answered ${answered} of 8.\nPlease answer the remaining ${remaining} question(s).`);
                 return;
             }
 
-            // All answered → calculate and show results
             const scoreData = calculateScore();
             renderResults(scoreData);
         });
 
         function calculateScore() {
-            let totalScore = 0;
-            const maxScore = questions.reduce((sum, q) => sum + q.points, 0);
-
+            let total = 0;
+            const max = questions.reduce((sum, q) => sum + q.points, 0);
             questions.forEach(q => {
-                const selected = document.querySelector(`input[name="q${q.id}"]:checked`);
-                if (selected && selected.value === "yes") totalScore += q.points;
+                const ans = document.querySelector(`input[name="q${q.id}"]:checked`);
+                if (ans && ans.value === "yes") total += q.points;
             });
+            const percentage = Math.round((total / max) * 100);
 
-            const percentage = Math.round((totalScore / maxScore) * 100);
-            let riskLevel = 'HIGH RISK', riskColor = 'danger', recommendation = 'Significant gaps detected. Immediate action required.';
+            let level = 'HIGH RISK', color = 'danger', rec = 'Significant gaps detected. Immediate action required.';
+            if (percentage >= 80) { level = 'LOW RISK'; color = 'success'; rec = 'Excellent posture!'; }
+            else if (percentage >= 60) { level = 'MEDIUM RISK'; color = 'warning'; rec = 'Moderate gaps. Focus on segmentation.'; }
 
-            if (percentage >= 80) {
-                riskLevel = 'LOW RISK'; riskColor = 'success';
-                recommendation = 'Excellent SL2 posture. Maintain current controls.';
-            } else if (percentage >= 60) {
-                riskLevel = 'MEDIUM RISK'; riskColor = 'warning';
-                recommendation = 'Moderate risk identified. Focus on segmentation and access control.';
-            }
-
-            return { percentage, riskLevel, riskColor, recommendation };
+            return { percentage, riskLevel: level, riskColor: color, recommendation: rec };
         }
 
-        function renderResults(scoreData) {
+        function renderResults(data) {
             resultsPlaceholder.style.display = 'none';
             resultsContent.style.display = 'block';
             resultsContent.innerHTML = `
-                <h2 class="display-1 fw-bold text-${scoreData.riskColor} text-center">${scoreData.percentage}%</h2>
-                <h4 class="text-${scoreData.riskColor} text-center">${scoreData.riskLevel}</h4>
-                <div class="alert alert-${scoreData.riskColor} mt-3">
-                    <strong>Recommendation:</strong> ${scoreData.recommendation}
+                <h2 class="display-1 fw-bold text-${data.riskColor} text-center">${data.percentage}%</h2>
+                <h4 class="text-${data.riskColor} text-center">${data.riskLevel}</h4>
+                <div class="alert alert-${data.riskColor} mt-3">
+                    <strong>Recommendation:</strong> ${data.recommendation}
                 </div>
-                <button onclick="saveAssessment()" class="btn btn-outline-light">Save Assessment</button>`;
+                <button onclick="saveAssessment()" class="btn btn-outline-light">💾 Save Assessment</button>`;
         }
 
         window.saveAssessment = () => alert("✅ Assessment saved!");
 
-        // Initialize
         renderQuestionnaire();
         submitBtn.disabled = false;
     }
 
-    // ====================== THREAT MATRIX & CHECKLIST ======================
-    if (document.getElementById('threat-table')) console.log('Threat Matrix loaded');
-    if (document.getElementById('checklist-container')) console.log('Checklist loaded');
+    // ====================== THREAT MATRIX ======================
+    if (document.getElementById('threat-table')) {
+        const threatsData = [
+            { threat: "Ransomware", description: "Encrypts OT systems and demands payment.", purdueLevel: "0-1, 2", impact: "High" },
+            { threat: "Stuxnet-style Worm", description: "Damages physical PLCs.", purdueLevel: "0-1", impact: "Critical" },
+            { threat: "Insider Threat", description: "Misuse of authorised access.", purdueLevel: "2, 3", impact: "Medium" },
+            { threat: "Phishing", description: "Credential theft via email.", purdueLevel: "3, 4-5", impact: "High" }
+        ];
 
-    window.resetChecklist = () => { if(confirm('Reset?')) location.reload(); };
+        const tableBody = document.getElementById('threat-body');
+        function renderThreats(data) {
+            tableBody.innerHTML = '';
+            data.forEach(t => {
+                const row = `<tr>
+                    <td><strong>${t.threat}</strong></td>
+                    <td>${t.description}</td>
+                    <td><span class="badge bg-info">${t.purdueLevel}</span></td>
+                    <td><span class="badge bg-danger">${t.impact}</span></td>
+                </tr>`;
+                tableBody.innerHTML += row;
+            });
+        }
+        renderThreats(threatsData);
+    }
 
-    console.log('✅ ICS Risk Hub Loaded Successfully');
+    // ====================== SL2 CHECKLIST ======================
+    if (document.getElementById('checklist-container')) {
+        const checklistItems = [
+            "Implement network segmentation", "Enforce least privilege access", 
+            "Deploy IEC 62443 conduits", "Patch management for OT", 
+            "Restrict remote access", "USB / removable media control",
+            "Continuous monitoring", "Regular staff training"
+        ];
+
+        const container = document.getElementById('checklist-container');
+        let html = '';
+        checklistItems.forEach((text, i) => {
+            html += `
+                <div class="form-check mb-3">
+                    <input class="form-check-input" type="checkbox" id="c${i}">
+                    <label class="form-check-label" for="c${i}">${text}</label>
+                </div>`;
+        });
+        container.innerHTML = html;
+
+        container.querySelectorAll('input').forEach(cb => {
+            cb.addEventListener('change', () => {
+                const checked = document.querySelectorAll('#checklist-container input:checked').length;
+                document.getElementById('progress-bar').style.width = (checked * 12.5) + '%';
+                document.getElementById('progress-text').textContent = `${checked}/8 controls (${checked * 12.5}%)`;
+            });
+        });
+    }
+
+    console.log('✅ Full ICS Risk Hub Loaded Successfully');
 });
