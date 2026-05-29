@@ -241,4 +241,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // ====================== GLOBAL INITIALIZATION ======================
     console.log('ICS Risk Hub JavaScript fully initialized');
+            // Force button to be enabled for better testing
+        submitBtn.disabled = false;
+        
 });

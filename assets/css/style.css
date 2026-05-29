@@ -1,22 +1,20 @@
 /* =============================================
-   ICS Risk Assessment Hub - FINAL TUNED STYLES
-   Improved visibility for gray text
+   ICS Risk Assessment Hub - FINAL VISIBILITY FIX
+   Clear headers + clickable button
    ============================================= */
 
 :root {
     --bg-dark: #001427;
     --bg-card: #001f3f;
     --accent-warning: #ffcb05;
-    --text-light: #e2e8f0;
-    --text-muted: #b3c0d4;        /* Brighter gray for better readability */
+    --text-light: #e6edf7;
+    --text-muted: #b0b8c9;
     --border-color: #ffcb05;
 }
 
-/* Global */
 body {
     background-color: var(--bg-dark);
     color: var(--text-light);
-    font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
 }
 
 /* Navbar */
@@ -29,19 +27,23 @@ body {
     color: var(--accent-warning) !important;
 }
 
-/* Cards */
+/* Cards & Headers - FORCE VISIBILITY */
+.card-header {
+    color: #ffeb9f !important;           /* Brighter gold for headers */
+    font-weight: 700;
+}
+
 .card {
     background-color: var(--bg-card);
     border: 2px solid var(--border-color);
-    border-radius: 12px;
 }
 
-/* Important: Fix for gray instructional text */
-.lead, 
-#results-placeholder p,
-.text-light-emphasis {
-    color: var(--text-muted) !important;
-    font-weight: 500;
+/* Questionnaire & Results text */
+#questionnaire-container p,
+#questionnaire-container .form-check-label,
+#results-placeholder p {
+    color: var(--text-light) !important;
+    font-size: 1.05rem;
 }
 
 /* Checklist */
@@ -49,24 +51,17 @@ body {
     color: var(--text-light) !important;
 }
 
-/* Make sure all question text is visible */
-#questionnaire-container p,
-#questionnaire-container .form-check-label {
-    color: var(--text-light) !important;
+/* Button - Make sure it's clickable */
+#submit-assessment {
+    background-color: #ffcb05 !important;
+    color: #001427 !important;
+    font-weight: 700;
+    cursor: pointer;
 }
 
-/* Other improvements */
-#checklist-container .form-check {
-    padding: 16px 18px;
-    margin-bottom: 10px;
-    background-color: var(--bg-card);
-    border: 1px solid rgba(255, 203, 5, 0.25);
-    border-radius: 10px;
+#submit-assessment:disabled {
+    opacity: 0.6;
 }
 
-#checklist-container .form-check:hover {
-    background-color: #002b55;
-}
-
-.progress-bar { background-color: #ffcb05; }
-.btn-warning { background-color: #ffcb05; color: #001427; font-weight: 700; }
+/* General improvements */
+.lead { color: var(--text-muted); }
