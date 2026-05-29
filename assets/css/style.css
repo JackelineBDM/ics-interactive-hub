@@ -1,6 +1,6 @@
 /* =============================================
-   FINAL DISTINCTION FIX - May 29
-   Gray subtitle + Clickable button + Clean look
+   FINAL FIX - May 29
+   Gray text + Working Calculate Button
    ============================================= */
 
 :root {
@@ -8,7 +8,7 @@
     --bg-card: #001f3f;
     --accent-warning: #ffcb05;
     --text-light: #e2e8f0;
-    --text-muted: #b0b8c9;        /* Gray for subtitles */
+    --text-gray: #a5b4d0;           /* Comfortable gray you asked for */
     --border-color: #ffcb05;
 }
 
@@ -33,10 +33,11 @@ body {
     font-weight: 700;
 }
 
-/* Subtitle - Make it gray as you want */
+/* Gray Text - Subtitle and Placeholder */
 .lead, 
-p.lead {
-    color: var(--text-muted) !important;
+#results-placeholder p,
+.text-light-emphasis {
+    color: var(--text-gray) !important;
 }
 
 /* Questions */
@@ -45,14 +46,13 @@ p.lead {
     color: var(--text-light) !important;
 }
 
-/* BUTTON FIX - Make it clickable */
+/* BUTTON FIX */
 #submit-assessment {
     background-color: #ffcb05 !important;
     color: #001427 !important;
     font-weight: 700 !important;
     cursor: pointer !important;
     pointer-events: all !important;
-    opacity: 1 !important;
 }
 
 #submit-assessment:disabled {
@@ -67,7 +67,4 @@ p.lead {
 
 #checklist-container .form-check {
     background-color: var(--bg-card);
-    border: 1px solid rgba(255, 203, 5, 0.25);
 }
-
-.progress-bar { background-color: #ffcb05; }
