@@ -91,7 +91,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // ====================== THREAT MATRIX ======================
     if (document.getElementById('threat-table') || document.getElementById('threat-body')) {
-        // Complete data set matching your UI screenshot exactly
         const threatsData = [
             { threat: "Ransomware", description: "Malicious software that encrypts critical OT systems and demands payment.", purdueLevel: "0-1, 2", impact: "High", badgeColor: "danger" },
             { threat: "Stuxnet-style Worm", description: "Targeted malware that damages physical industrial equipment (PLCs).", purdueLevel: "0-1", impact: "Critical", badgeColor: "danger" },
@@ -121,7 +120,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // ====================== SL2 CHECKLIST ======================
     if (document.getElementById('checklist-container')) {
-        // Exact text labels from your checklist image
         const checklistItems = [
             "Implement network segmentation between Purdue Levels", 
             "Enforce strict access control and least privilege", 
@@ -149,7 +147,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const checked = container.querySelectorAll('input:checked').length;
             const pct = (checked / totalControls) * 100;
             
-            const progressBar = document.getElementById('progress-bar');
+            const progressBar = document.getElementById('progress-bar') || document.querySelector('.progress-bar');
             const progressText = document.getElementById('progress-text');
             
             if (progressBar) progressBar.style.width = pct + '%';
@@ -160,11 +158,15 @@ document.addEventListener('DOMContentLoaded', () => {
             cb.addEventListener('change', updateProgress);
         });
 
-        // Add support for a reset button if it exists in your template
-        const resetBtn = document.getElementById('reset-checklist') || document.querySelector('.btn-outline-light[onclick*="Reset"]');
+        // FIXED RESET INTERACTION BLOCK
+        const resetBtn = document.getElementById('reset-checklist') || 
+                         document.querySelector('.btn-outline-light[onclick*="Reset"]') ||
+                         Array.from(document.querySelectorAll('button')).find(el => el.textContent.includes('Reset Checklist'));
+
         if (resetBtn) {
-            resetBtn.addEventListener('click', () => {
-                container.querySelectorAll('input').forEach(cb => cb.checked = false);
+            resetBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                container.querySelectorAll('input[type="checkbox"]').forEach(cb => cb.checked = false);
                 updateProgress();
             });
         }
