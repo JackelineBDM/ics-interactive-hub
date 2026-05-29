@@ -1,14 +1,14 @@
 /* =============================================
-   ICS Risk Assessment Hub - STRONG VISIBILITY FIX
-   Clear headers + clickable button + softer gray
+   FINAL DISTINCTION FIX - May 29
+   Gray subtitle + Clickable button + Clean look
    ============================================= */
 
 :root {
     --bg-dark: #001427;
     --bg-card: #001f3f;
     --accent-warning: #ffcb05;
-    --text-light: #e6edf7;
-    --text-muted: #b8c4d6;        /* Slightly brighter gray as you liked before */
+    --text-light: #e2e8f0;
+    --text-muted: #b0b8c9;        /* Gray for subtitles */
     --border-color: #ffcb05;
 }
 
@@ -27,37 +27,37 @@ body {
     color: var(--accent-warning) !important;
 }
 
-/* FORCE CARD HEADERS TO BE VISIBLE */
+/* Card Headers */
 .card-header {
-    color: #ffeb9f !important;     /* Bright gold for headers */
-    font-weight: 700 !important;
-    background-color: #002b55 !important;
+    color: #ffeb9f !important;
+    font-weight: 700;
 }
 
-/* Make sure questions are visible */
+/* Subtitle - Make it gray as you want */
+.lead, 
+p.lead {
+    color: var(--text-muted) !important;
+}
+
+/* Questions */
 #questionnaire-container p,
 #questionnaire-container .form-check-label {
     color: var(--text-light) !important;
 }
 
-/* Button - Force it to be clickable */
+/* BUTTON FIX - Make it clickable */
 #submit-assessment {
     background-color: #ffcb05 !important;
     color: #001427 !important;
     font-weight: 700 !important;
     cursor: pointer !important;
+    pointer-events: all !important;
     opacity: 1 !important;
 }
 
 #submit-assessment:disabled {
     opacity: 1 !important;
     pointer-events: all !important;
-}
-
-/* Gray instructional text - softer as you preferred */
-.lead, 
-#results-placeholder p {
-    color: var(--text-muted) !important;
 }
 
 /* Checklist */
@@ -70,5 +70,4 @@ body {
     border: 1px solid rgba(255, 203, 5, 0.25);
 }
 
-/* Progress & General */
 .progress-bar { background-color: #ffcb05; }
