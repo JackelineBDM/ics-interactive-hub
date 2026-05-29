@@ -83,3 +83,20 @@ body {
 .lead {
     color: var(--text-muted);
 }
+/* QUICK FIX FOR VISIBILITY */
+.card-header, h3, h4, .card-title {
+    color: #ffeb9f !important;
+    font-weight: 700;
+}
+
+#questionnaire-container p, 
+#questionnaire-container label {
+    color: #e2e8f0 !important;
+}
+
+/* Make Calculate button more obvious */
+#submit-assessment {
+    background-color: #ffcb05 !important;
+    color: #001427 !important;
+    font-weight: bold;
+}
