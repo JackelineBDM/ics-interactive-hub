@@ -1,20 +1,23 @@
 /* =============================================
-   FINAL FIX - May 29
-   Gray text + Working Calculate Button
+   ICS Risk Assessment Hub - FINAL SOFT TEXT STYLES
+   Softer gray-white text for eye comfort
    ============================================= */
 
 :root {
     --bg-dark: #001427;
     --bg-card: #001f3f;
     --accent-warning: #ffcb05;
-    --text-light: #e2e8f0;
-    --text-gray: #a5b4d0;           /* Comfortable gray you asked for */
+    --text-light: #d1d5db;        /* Soft gray-white - much easier on eyes */
+    --text-muted: #94a3b8;
     --border-color: #ffcb05;
 }
 
+/* Global */
 body {
     background-color: var(--bg-dark);
     color: var(--text-light);
+    font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    line-height: 1.6;
 }
 
 /* Navbar */
@@ -27,64 +30,56 @@ body {
     color: var(--accent-warning) !important;
 }
 
-/* Card Headers */
-.card-header {
-    color: #ffeb9f !important;
+/* Cards */
+.card {
+    background-color: var(--bg-card);
+    border: 2px solid var(--border-color);
+    border-radius: 12px;
+}
+
+/* CHECKLIST */
+#checklist-container .form-check {
+    padding: 16px 18px;
+    margin-bottom: 10px;
+    background-color: var(--bg-card);
+    border: 1px solid rgba(255, 203, 5, 0.25);
+    border-radius: 10px;
+    transition: all 0.25s ease;
+}
+
+#checklist-container .form-check:hover {
+    background-color: #002b55;
+    border-color: #ffcb05;
+}
+
+#checklist-container .form-check-label {
+    color: var(--text-light) !important;
+    font-size: 1.06rem;
+    line-height: 1.55;
+}
+
+#checklist-container .form-check-input {
+    accent-color: #ffcb05;
+    transform: scale(1.15);
+}
+
+/* Progress Bar */
+.progress {
+    height: 14px;
+    background-color: #002b55;
+}
+
+.progress-bar {
+    background-color: #ffcb05;
+}
+
+/* Buttons */
+.btn-warning {
+    background-color: var(--accent-warning);
+    color: #001427;
     font-weight: 700;
 }
 
-/* Gray Text - Subtitle and Placeholder */
-.lead, 
-#results-placeholder p,
-.text-light-emphasis {
-    color: var(--text-gray) !important;
-}
-
-/* Questions */
-#questionnaire-container p,
-#questionnaire-container .form-check-label {
-    color: var(--text-light) !important;
-}
-
-/* BUTTON FIX */
-#submit-assessment {
-    background-color: #ffcb05 !important;
-    color: #001427 !important;
-    font-weight: 700 !important;
-    cursor: pointer !important;
-    pointer-events: all !important;
-}
-
-#submit-assessment:disabled {
-    opacity: 1 !important;
-    pointer-events: all !important;
-}
-
-/* Checklist */
-#checklist-container .form-check-label {
-    color: var(--text-light) !important;
-}
-
-#checklist-container .form-check {
-    background-color: var(--bg-card);
-}
-/* =============================================
-   DISTINCTION QUALITY - Dynamic Blue Blocks
-   ============================================= */
-
-/* Style for questionnaire rows to match compliance checklist blocks exactly */
-.question-row {
-    background-color: var(--bg-card) !important; /* Reuses your existing #001f3f card blue */
-    border: 1px solid #1e3d59;
-    color: var(--text-light) !important;
-    margin-bottom: 0.75rem;
-    padding: 16px;
-    border-radius: 4px;
-}
-
-/* Accessible text styling and positioning for question options */
-.question-row .form-check-label {
-    margin-left: 6px;
-    margin-right: 15px;
-    cursor: pointer;
+.lead {
+    color: var(--text-muted);
 }
