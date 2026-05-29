@@ -1,13 +1,13 @@
 /* =============================================
-   ICS Risk Assessment Hub - ULTRA SOFT VERSION
-   Softer text + reduced contrast (New Day Edition)
+   ICS Risk Assessment Hub - FINAL SOFT TEXT STYLES
+   Softer gray-white text for eye comfort
    ============================================= */
 
 :root {
-    --bg-dark: #0f172a;
-    --bg-card: #1e2a44;           /* Slightly darker card for less contrast */
+    --bg-dark: #001427;
+    --bg-card: #001f3f;
     --accent-warning: #ffcb05;
-    --text-light: #c8d0e0;        /* Even softer gray-white */
+    --text-light: #d1d5db;        /* Soft gray-white - much easier on eyes */
     --text-muted: #94a3b8;
     --border-color: #ffcb05;
 }
@@ -22,7 +22,7 @@ body {
 
 /* Navbar */
 .navbar {
-    background-color: #0f172a !important;
+    background-color: var(--bg-dark) !important;
     border-bottom: 3px solid var(--accent-warning) !important;
 }
 
@@ -37,24 +37,25 @@ body {
     border-radius: 12px;
 }
 
-/* CHECKLIST - Softer & Calmer */
+/* CHECKLIST */
 #checklist-container .form-check {
     padding: 16px 18px;
     margin-bottom: 10px;
     background-color: var(--bg-card);
-    border: 1px solid rgba(255, 203, 5, 0.2);
+    border: 1px solid rgba(255, 203, 5, 0.25);
     border-radius: 10px;
+    transition: all 0.25s ease;
 }
 
 #checklist-container .form-check:hover {
-    background-color: #2a3a5c;
+    background-color: #002b55;
     border-color: #ffcb05;
 }
 
 #checklist-container .form-check-label {
     color: var(--text-light) !important;
     font-size: 1.06rem;
-    line-height: 1.6;
+    line-height: 1.55;
 }
 
 #checklist-container .form-check-input {
@@ -65,7 +66,7 @@ body {
 /* Progress Bar */
 .progress {
     height: 14px;
-    background-color: #2a3a5c;
+    background-color: #002b55;
 }
 
 .progress-bar {
@@ -75,7 +76,7 @@ body {
 /* Buttons */
 .btn-warning {
     background-color: var(--accent-warning);
-    color: #0f172a;
+    color: #001427;
     font-weight: 700;
 }
 
