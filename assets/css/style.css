@@ -68,3 +68,23 @@ body {
 #checklist-container .form-check {
     background-color: var(--bg-card);
 }
+/* =============================================
+   DISTINCTION QUALITY - Dynamic Blue Blocks
+   ============================================= */
+
+/* Style for questionnaire rows to match compliance checklist blocks exactly */
+.question-row {
+    background-color: var(--bg-card) !important; /* Reuses your existing #001f3f card blue */
+    border: 1px solid #1e3d59;
+    color: var(--text-light) !important;
+    margin-bottom: 0.75rem;
+    padding: 16px;
+    border-radius: 4px;
+}
+
+/* Accessible text styling and positioning for question options */
+.question-row .form-check-label {
+    margin-left: 6px;
+    margin-right: 15px;
+    cursor: pointer;
+}
