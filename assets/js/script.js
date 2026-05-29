@@ -4,16 +4,25 @@
 
 document.addEventListener('DOMContentLoaded', () => {
 
+    // ====================== RISK CALCULATOR ======================
     if (document.getElementById('questionnaire-container')) {
 
-        const questions = [ /* same 8 questions as before */ ];
+        const questions = [
+            { id: 1, text: "Is the Purdue Level 0-1 (Process/Field devices) network segmented from Level 2 (Supervisory) systems?", points: 10 },
+            { id: 2, text: "Is remote access to ICS/OT systems strictly controlled and monitored?", points: 10 },
+            { id: 3, text: "Are firewalls and conduits implemented between Purdue zones according to IEC 62443?", points: 10 },
+            { id: 4, text: "Do you have a patch management program for OT/ICS systems?", points: 8 },
+            { id: 5, text: "Is there strict access control (least privilege) for engineers and contractors?", points: 10 },
+            { id: 6, text: "Are USB and removable media policies enforced on OT systems?", points: 8 },
+            { id: 7, text: "Is network monitoring and anomaly detection in place for Purdue Level 0-2?", points: 9 },
+            { id: 8, text: "Have staff received recent training on ICS cybersecurity awareness?", points: 7 }
+        ];
 
         const questionnaireContainer = document.getElementById('questionnaire-container');
         const resultsPlaceholder = document.getElementById('results-placeholder');
         const resultsContent = document.getElementById('results-content');
         const submitBtn = document.getElementById('submit-assessment');
 
-        // Render questions
         function renderQuestionnaire() {
             let html = '<form id="risk-form">';
             questions.forEach((q, index) => {
@@ -34,45 +43,42 @@ document.addEventListener('DOMContentLoaded', () => {
             questionnaireContainer.innerHTML = html;
         }
 
-        function countAnswered() {
-            return document.querySelectorAll('input[type="radio"]:checked').length;
-        }
-
-        // MAIN BUTTON CLICK - STRONG VALIDATION
+        // === STRONG VALIDATION ON BUTTON CLICK ===
         submitBtn.addEventListener('click', () => {
-            const answered = countAnswered();
+            const answered = document.querySelectorAll('input[type="radio"]:checked').length;
 
             if (answered < questions.length) {
-                const missing = questions.length - answered;
-                alert(`⚠️ You have not answered all questions!\n\nYou still need to answer ${missing} more question(s).\n\nPlease complete the full questionnaire before calculating.`);
-                return;
+                const remaining = questions.length - answered;
+                alert(`❌ Please answer all questions!\n\nYou have answered ${answered} out of 8 questions.\nYou still need to answer ${remaining} more question(s).`);
+                return;   // Stop here - do not calculate
             }
 
-            // If all answered → calculate and show result
+            // If all questions are answered → calculate and show result
             const scoreData = calculateScore();
             renderResults(scoreData);
         });
 
         function calculateScore() {
-            // ... same calculation code as before ...
             let totalScore = 0;
             const maxScore = questions.reduce((sum, q) => sum + q.points, 0);
 
             questions.forEach(q => {
                 const selected = document.querySelector(`input[name="q${q.id}"]:checked`);
-                if (selected && selected.value === "yes") totalScore += q.points;
+                if (selected && selected.value === "yes") {
+                    totalScore += q.points;
+                }
             });
 
             const percentage = Math.round((totalScore / maxScore) * 100);
-            
+
             let riskLevel = 'HIGH RISK', riskColor = 'danger', recommendation = 'Significant gaps detected. Immediate action required on zoning, conduits and access controls.';
 
             if (percentage >= 80) {
                 riskLevel = 'LOW RISK'; riskColor = 'success';
-                recommendation = 'Excellent SL2 posture. Maintain current controls.';
+                recommendation = 'Excellent SL2 posture. Maintain current controls and continue regular reviews.';
             } else if (percentage >= 60) {
                 riskLevel = 'MEDIUM RISK'; riskColor = 'warning';
-                recommendation = 'Moderate risk identified. Focus on segmentation and access control.';
+                recommendation = 'Moderate risk identified. Prioritise segmentation and access control improvements.';
             }
 
             return { percentage, riskLevel, riskColor, recommendation };
@@ -84,15 +90,15 @@ document.addEventListener('DOMContentLoaded', () => {
             resultsContent.innerHTML = `
                 <div class="text-center">
                     <h2 class="display-1 fw-bold text-${scoreData.riskColor}">${scoreData.percentage}%</h2>
-                    <h4 class="text-${scoreData.riskColor}">${scoreData.riskLevel}</h4>
-                    <div class="alert alert-${scoreData.riskColor} mt-3">
+                    <h4 class="text-${scoreData.riskColor} mb-3">${scoreData.riskLevel}</h4>
+                    <div class="alert alert-${scoreData.riskColor}">
                         <strong>Recommendation:</strong><br>${scoreData.recommendation}
                     </div>
-                    <button onclick="saveAssessment()" class="btn btn-outline-light">💾 Save Assessment</button>
+                    <button onclick="saveAssessment()" class="btn btn-outline-light mt-3">💾 Save Assessment</button>
                 </div>`;
         }
 
-        window.saveAssessment = () => alert("Assessment saved!");
+        window.saveAssessment = () => alert("✅ Assessment saved successfully!");
 
         // Initialize
         renderQuestionnaire();
