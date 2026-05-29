@@ -1,6 +1,6 @@
 /* =============================================
-   ICS Risk Assessment Hub - FINAL VISIBILITY FIX
-   Clear headers + clickable button
+   ICS Risk Assessment Hub - STRONG VISIBILITY FIX
+   Clear headers + clickable button + softer gray
    ============================================= */
 
 :root {
@@ -8,7 +8,7 @@
     --bg-card: #001f3f;
     --accent-warning: #ffcb05;
     --text-light: #e6edf7;
-    --text-muted: #b0b8c9;
+    --text-muted: #b8c4d6;        /* Slightly brighter gray as you liked before */
     --border-color: #ffcb05;
 }
 
@@ -27,23 +27,37 @@ body {
     color: var(--accent-warning) !important;
 }
 
-/* Cards & Headers - FORCE VISIBILITY */
+/* FORCE CARD HEADERS TO BE VISIBLE */
 .card-header {
-    color: #ffeb9f !important;           /* Brighter gold for headers */
-    font-weight: 700;
+    color: #ffeb9f !important;     /* Bright gold for headers */
+    font-weight: 700 !important;
+    background-color: #002b55 !important;
 }
 
-.card {
-    background-color: var(--bg-card);
-    border: 2px solid var(--border-color);
-}
-
-/* Questionnaire & Results text */
+/* Make sure questions are visible */
 #questionnaire-container p,
-#questionnaire-container .form-check-label,
-#results-placeholder p {
+#questionnaire-container .form-check-label {
     color: var(--text-light) !important;
-    font-size: 1.05rem;
+}
+
+/* Button - Force it to be clickable */
+#submit-assessment {
+    background-color: #ffcb05 !important;
+    color: #001427 !important;
+    font-weight: 700 !important;
+    cursor: pointer !important;
+    opacity: 1 !important;
+}
+
+#submit-assessment:disabled {
+    opacity: 1 !important;
+    pointer-events: all !important;
+}
+
+/* Gray instructional text - softer as you preferred */
+.lead, 
+#results-placeholder p {
+    color: var(--text-muted) !important;
 }
 
 /* Checklist */
@@ -51,17 +65,10 @@ body {
     color: var(--text-light) !important;
 }
 
-/* Button - Make sure it's clickable */
-#submit-assessment {
-    background-color: #ffcb05 !important;
-    color: #001427 !important;
-    font-weight: 700;
-    cursor: pointer;
+#checklist-container .form-check {
+    background-color: var(--bg-card);
+    border: 1px solid rgba(255, 203, 5, 0.25);
 }
 
-#submit-assessment:disabled {
-    opacity: 0.6;
-}
-
-/* General improvements */
-.lead { color: var(--text-muted); }
+/* Progress & General */
+.progress-bar { background-color: #ffcb05; }
