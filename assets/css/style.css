@@ -1,13 +1,13 @@
 /* =============================================
-   ICS Risk Assessment Hub - ULTRA SOFT VERSION
-   Softer text + reduced contrast (New Day Edition)
+   ICS Risk Assessment Hub - FINAL FIXED STYLES
+   Visible text on both pages
    ============================================= */
 
 :root {
-    --bg-dark: #0f172a;
-    --bg-card: #1e2a44;           /* Slightly darker card for less contrast */
+    --bg-dark: #001427;
+    --bg-card: #001f3f;
     --accent-warning: #ffcb05;
-    --text-light: #c8d0e0;        /* Even softer gray-white */
+    --text-light: #e2e8f0;        /* Balanced soft white */
     --text-muted: #94a3b8;
     --border-color: #ffcb05;
 }
@@ -17,12 +17,11 @@ body {
     background-color: var(--bg-dark);
     color: var(--text-light);
     font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
-    line-height: 1.6;
 }
 
 /* Navbar */
 .navbar {
-    background-color: #0f172a !important;
+    background-color: var(--bg-dark) !important;
     border-bottom: 3px solid var(--accent-warning) !important;
 }
 
@@ -37,48 +36,39 @@ body {
     border-radius: 12px;
 }
 
-/* CHECKLIST - Softer & Calmer */
+/* RISK ASSESSMENT PAGE - Questionnaire */
+#questionnaire-container .form-check-label,
+#questionnaire-container p {
+    color: var(--text-light) !important;
+    font-size: 1.05rem;
+}
+
+/* CHECKLIST PAGE */
+#checklist-container .form-check-label {
+    color: var(--text-light) !important;
+    font-size: 1.06rem;
+}
+
+/* Both pages - General form text */
+.form-check-label {
+    color: var(--text-light) !important;
+}
+
+/* Checklist cards */
 #checklist-container .form-check {
     padding: 16px 18px;
     margin-bottom: 10px;
     background-color: var(--bg-card);
-    border: 1px solid rgba(255, 203, 5, 0.2);
+    border: 1px solid rgba(255, 203, 5, 0.25);
     border-radius: 10px;
 }
 
 #checklist-container .form-check:hover {
-    background-color: #2a3a5c;
-    border-color: #ffcb05;
+    background-color: #002b55;
 }
 
-#checklist-container .form-check-label {
-    color: var(--text-light) !important;
-    font-size: 1.06rem;
-    line-height: 1.6;
-}
+/* Progress & Buttons */
+.progress-bar { background-color: #ffcb05; }
+.btn-warning { background-color: #ffcb05; color: #001427; font-weight: 700; }
 
-#checklist-container .form-check-input {
-    accent-color: #ffcb05;
-    transform: scale(1.15);
-}
-
-/* Progress Bar */
-.progress {
-    height: 14px;
-    background-color: #2a3a5c;
-}
-
-.progress-bar {
-    background-color: #ffcb05;
-}
-
-/* Buttons */
-.btn-warning {
-    background-color: var(--accent-warning);
-    color: #0f172a;
-    font-weight: 700;
-}
-
-.lead {
-    color: var(--text-muted);
-}
+.lead { color: var(--text-muted); }
