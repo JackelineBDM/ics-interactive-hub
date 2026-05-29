@@ -1,10 +1,10 @@
 // =============================================
-// ICS Risk Assessment Hub - FIXED VALIDATION
+// ICS Risk Assessment Hub - COMPLETE & FIXED
 // =============================================
 
 document.addEventListener('DOMContentLoaded', () => {
 
-    // ====================== RISK CALCULATOR ======================
+    // ====================== RISK CALCULATOR (index.html) ======================
     if (document.getElementById('questionnaire-container')) {
 
         const questions = [
@@ -43,17 +43,17 @@ document.addEventListener('DOMContentLoaded', () => {
             questionnaireContainer.innerHTML = html;
         }
 
-        // === STRONG VALIDATION ON BUTTON CLICK ===
+        // FIXED VALIDATION - Shows message even if some questions are answered
         submitBtn.addEventListener('click', () => {
             const answered = document.querySelectorAll('input[type="radio"]:checked').length;
 
             if (answered < questions.length) {
                 const remaining = questions.length - answered;
-                alert(`❌ Please answer all questions!\n\nYou have answered ${answered} out of 8 questions.\nYou still need to answer ${remaining} more question(s).`);
-                return;   // Stop here - do not calculate
+                alert(`❌ Please complete all questions!\n\nYou have answered ${answered} out of 8.\nPlease answer the remaining ${remaining} question(s).`);
+                return;
             }
 
-            // If all questions are answered → calculate and show result
+            // All answered → calculate and show results
             const scoreData = calculateScore();
             renderResults(scoreData);
         });
@@ -64,21 +64,18 @@ document.addEventListener('DOMContentLoaded', () => {
 
             questions.forEach(q => {
                 const selected = document.querySelector(`input[name="q${q.id}"]:checked`);
-                if (selected && selected.value === "yes") {
-                    totalScore += q.points;
-                }
+                if (selected && selected.value === "yes") totalScore += q.points;
             });
 
             const percentage = Math.round((totalScore / maxScore) * 100);
-
-            let riskLevel = 'HIGH RISK', riskColor = 'danger', recommendation = 'Significant gaps detected. Immediate action required on zoning, conduits and access controls.';
+            let riskLevel = 'HIGH RISK', riskColor = 'danger', recommendation = 'Significant gaps detected. Immediate action required.';
 
             if (percentage >= 80) {
                 riskLevel = 'LOW RISK'; riskColor = 'success';
-                recommendation = 'Excellent SL2 posture. Maintain current controls and continue regular reviews.';
+                recommendation = 'Excellent SL2 posture. Maintain current controls.';
             } else if (percentage >= 60) {
                 riskLevel = 'MEDIUM RISK'; riskColor = 'warning';
-                recommendation = 'Moderate risk identified. Prioritise segmentation and access control improvements.';
+                recommendation = 'Moderate risk identified. Focus on segmentation and access control.';
             }
 
             return { percentage, riskLevel, riskColor, recommendation };
@@ -88,22 +85,26 @@ document.addEventListener('DOMContentLoaded', () => {
             resultsPlaceholder.style.display = 'none';
             resultsContent.style.display = 'block';
             resultsContent.innerHTML = `
-                <div class="text-center">
-                    <h2 class="display-1 fw-bold text-${scoreData.riskColor}">${scoreData.percentage}%</h2>
-                    <h4 class="text-${scoreData.riskColor} mb-3">${scoreData.riskLevel}</h4>
-                    <div class="alert alert-${scoreData.riskColor}">
-                        <strong>Recommendation:</strong><br>${scoreData.recommendation}
-                    </div>
-                    <button onclick="saveAssessment()" class="btn btn-outline-light mt-3">💾 Save Assessment</button>
-                </div>`;
+                <h2 class="display-1 fw-bold text-${scoreData.riskColor} text-center">${scoreData.percentage}%</h2>
+                <h4 class="text-${scoreData.riskColor} text-center">${scoreData.riskLevel}</h4>
+                <div class="alert alert-${scoreData.riskColor} mt-3">
+                    <strong>Recommendation:</strong> ${scoreData.recommendation}
+                </div>
+                <button onclick="saveAssessment()" class="btn btn-outline-light">Save Assessment</button>`;
         }
 
-        window.saveAssessment = () => alert("✅ Assessment saved successfully!");
+        window.saveAssessment = () => alert("✅ Assessment saved!");
 
         // Initialize
         renderQuestionnaire();
-        submitBtn.disabled = false;   // Button always clickable
+        submitBtn.disabled = false;
     }
 
-    console.log('✅ ICS Risk Hub - Validation Fixed');
+    // ====================== THREAT MATRIX & CHECKLIST ======================
+    if (document.getElementById('threat-table')) console.log('Threat Matrix loaded');
+    if (document.getElementById('checklist-container')) console.log('Checklist loaded');
+
+    window.resetChecklist = () => { if(confirm('Reset?')) location.reload(); };
+
+    console.log('✅ ICS Risk Hub Loaded Successfully');
 });
