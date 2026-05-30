@@ -7,7 +7,7 @@
     --bg-card: #001f3f;
     --accent-warning: #ffcb05;
     --text-light: #d1d5db;        /* Soft gray-white - much easier on eyes */
-    --text-muted: #e2e8f0;        
+    --text-muted: #cbd5e1;        /* FIXED: Light silver gray for clear visibility */
     --border-color: #ffcb05;
 }
 
@@ -38,8 +38,7 @@ body > div > p,
 /* High contrast visibility fix for the footer academic prototype text */
 footer p, 
 .footer p,
-body > div.container.mt-5.pt-5 > div > div > p,
-p:contains("Academic Prototype") {
+body > div.container.mt-5.pt-5 > div > div > p {
     color: #94a3b8 !important;    /* Noticeably lighter gray for engineering standards footnotes */
 }
 
@@ -69,6 +68,11 @@ p:contains("Academic Prototype") {
 .card-header, h3, h4, .card-title {
     color: #ffeb9f !important;
     font-weight: 700;
+}
+
+/* Generic Bootstrap helper overwrite to protect visibility globally */
+.text-muted {
+    color: #cbd5e1 !important;    /* Forces text-muted labels to remain brightly readable */
 }
 
 /* =============================================
@@ -109,6 +113,13 @@ p:contains("Academic Prototype") {
     background-color: #ffcb05;
 }
 
+/* FIXED: Forces the 'Progress' label text above the bar to be high-contrast and clear */
+.progress-container text,
+div.d-flex.justify-content-between.align-items-center > span {
+    color: #cbd5e1 !important;
+    opacity: 1 !important;
+}
+
 /* Alternative Reset Button component styles */
 .btn-outline-warning {
     border-color: var(--accent-warning) !important;
@@ -118,6 +129,24 @@ p:contains("Academic Prototype") {
 .btn-outline-warning:hover {
     background-color: var(--accent-warning) !important;
     color: #001427 !important;
+}
+
+/* =============================================
+   LIVE THREAT MATRIX STYLING & SEARCH FIXES
+   ============================================= */
+
+/* FIXED: Restores bright visibility to input text and placeholder hint "Search threats..." */
+input[type="search"], 
+.form-control {
+    color: #ffffff !important;         /* User typed text color */
+    background-color: #001f3f;
+    border: 1px solid var(--border-color);
+}
+
+input[type="search"]::placeholder,
+.form-control::placeholder {
+    color: #94a3b8 !important;         /* Crisp soft silver color for placeholder text */
+    opacity: 1 !important;             /* Prevents browser from applying transparent fade */
 }
 
 /* =============================================
