@@ -113,14 +113,12 @@ body > div.container.mt-5.pt-5 > div > div > p {
     background-color: #ffcb05;
 }
 
-/* FIXED: Hammer-force the small 'Progress' label text to be bright silver-white regardless of Bootstrap rules */
-div.d-flex.justify-content-between.align-items-center > span.text-muted,
-.progress-bar-wrapper small,
-div.d-flex.justify-content-between.align-items-center span,
-.card-body div.d-flex.justify-content-between.align-items-center span {
-    color: #e2e8f0 !important;
+/* CRITICAL FIX: Forces the 'Progress' label text above the bar to be pure bright white */
+.d-flex.justify-content-between.align-items-center span.text-muted,
+.d-flex.justify-content-between.align-items-center span {
+    color: #ffffff !important;
     opacity: 1 !important;
-    font-weight: 600 !important;
+    font-weight: bold !important;
 }
 
 /* Alternative Reset Button component styles */
@@ -152,24 +150,13 @@ input[type="search"]::placeholder,
     opacity: 1 !important;             /* Prevents browser from applying transparent fade */
 }
 
-/* FIXED: Level Filter Buttons Text Contrast Fix (Active vs Normal States) */
-.btn-group .btn-outline-warning,
-.filter-btn,
-[id^="filter-"] {
-    color: #ffcb05 !important;         /* Unselected button text is clear yellow gold */
-    border-color: #ffcb05 !important;
-}
-
-/* When active, selected, or hovered, invert text to dark blue so it is completely legible against the solid gold background! */
+/* CRITICAL FIX: Force dark text on active/selected buttons so you can read them! */
 .btn-group .btn-outline-warning.active,
-.btn-group .btn-outline-warning:class(*active),
-.filter-btn.active,
-.filter-btn:hover,
-[id^="filter-"].active,
-.btn-outline-warning:checked + .btn,
-.btn-check:checked + .btn-outline-warning {
+.btn-group .btn-outline-warning:hover,
+.btn-outline-warning.active,
+.btn-outline-warning:hover {
     background-color: #ffcb05 !important;
-    color: #001427 !important;          /* Deep dark blue text for flawless visibility over yellow */
+    color: #001427 !important;          /* Deep dark blue text over the yellow background */
 }
 
 /* =============================================
