@@ -98,40 +98,42 @@ body {
 
 /* =============================================
    RISK ASSESSMENT QUESTIONNAIRE STYLING
-   (Mirrors the checklist thin & stretched layout perfectly)
+   (Perfectly thinned down to mirror the checklist bars)
    ============================================= */
 
-/* Sleek questionnaire item rows mimicking compliance block blue layout */
+/* Thinned out questionnaire rows to perfectly match compliance item bars */
 .question-row {
-    background-color: var(--bg-card) !important; /* Forces the exact same dark blue container look */
+    background-color: var(--bg-card) !important; 
     border: 1px solid rgba(255, 203, 5, 0.25);
-    margin-bottom: 12px !important;              /* Clean layout separation between individual cards */
-    padding: 14px 18px !important;                /* Perfect thin vertical height constraints */
+    margin-bottom: 10px !important;              /* Exactly matches checklist spacing */
+    padding: 10px 16px !important;                /* Reduced from 14px to 10px to make them thin and sleek */
     border-radius: 10px;
-    width: 100%;                                 /* Stretches the inner rows completely across the card element */
+    width: 100%;                                 
     display: block;
     transition: all 0.25s ease;
 }
 
 /* Interactive feedback on hovering a questionnaire choice box */
 .question-row:hover {
-    background-color: #002b55 !important;
+    background-color: #002b55 !important;        /* Matches checklist hover background exactly */
     border-color: #ffcb05;
 }
 
-/* Text visibility inside questionnaire blocks */
+/* Thinned text and tight alignment parameters inside rows */
 .question-row p.fw-semibold {
-    color: #e2e8f0 !important;                   /* Restores comfortable text color choices for questions */
+    color: #e2e8f0 !important;                   
     font-size: 1.02rem;
-    margin-bottom: 8px !important;
+    margin-bottom: 4px !important;               /* Reduced text bottom margin to close up gap */
+    line-height: 1.4;
 }
 
 /* Label text contrast parameters inside questionnaire options */
 .question-row .form-check-label {
-    color: #e2e8f0 !important;                   /* Restores comfortable text color choices for radio choices */
+    color: #e2e8f0 !important;                   
     margin-left: 6px;
     margin-right: 24px;
     font-weight: 500;
+    font-size: 0.98rem;                          /* Slightly tightened label sizing */
     cursor: pointer;
 }
 
@@ -139,7 +141,7 @@ body {
 .question-row .form-check-inline {
     display: inline-flex;
     align-items: center;
-    margin-top: 2px;
+    margin-top: 0px;                             /* Removed top pull to keep row compact */
 }
 
 /* Main Submission Button Configuration */
