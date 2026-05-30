@@ -126,30 +126,26 @@ small.text-muted {
     letter-spacing: 0.5px;
 }
 
-/* SOLID YELLOW HOVER EFFECTS: Reset Checklist Button */
-.btn-outline-warning,
-button[onclick*="resetChecklist"],
-#checklist-container + div button,
-.card-body button.btn-outline-light {
-    background-color: #ffcb05 !important; /* Solid Yellow Default */
+/* ONLY THIS BUTTON: Solid Yellow Reset Checklist Button */
+#reset-checklist,
+button[onclick*="resetChecklist"] {
+    background-color: #ffcb05 !important;
     border: 2px solid #ffcb05 !important;
-    color: #001427 !important;            /* Dark text for contrast */
+    color: #001427 !important;
     font-weight: bold !important;
     border-radius: 6px;
     transition: all 0.2s ease-in-out !important;
 }
 
-.btn-outline-warning:hover,
-button[onclick*="resetChecklist"]:hover,
-#checklist-container + div button:hover,
-.card-body button.btn-outline-light:hover {
-    background-color: #e0b304 !important; /* Smoothly dims to an amber-yellow on hover */
+#reset-checklist:hover,
+button[onclick*="resetChecklist"]:hover {
+    background-color: #e0b304 !important;
     border-color: #e0b304 !important;
     color: #001427 !important;
 }
 
 /* =============================================
-   LIVE THREAT MATRIX STYLING & SEARCH FIXES
+   LIVE THREAT MATRIX STYLING & SEARCH RESTORED
    ============================================= */
 
 /* Restores bright visibility to input text and placeholder hint "Search threats..." */
@@ -166,14 +162,17 @@ input[type="search"]::placeholder,
     opacity: 1 !important;             /* Prevents browser from applying transparent fade */
 }
 
-/* LEVEL BUTTONS SELECTORS: Targets the active button filter layout blocks */
-.btn-group .btn-outline-warning.active,
-.btn-group .btn-outline-warning:hover,
-.btn-outline-warning.active,
+/* RESTORED EXACTLY AS BEFORE: Standard styling for filter buttons on this page */
+.btn-outline-warning {
+    border-color: var(--accent-warning) !important;
+    color: var(--accent-warning) !important;
+    background-color: transparent !important;
+}
+
 .btn-outline-warning:hover,
-.btn-check:checked + .btn-outline-warning {
-    background-color: #ffcb05 !important;
-    color: #001427 !important;          /* Dark blue text fill over the solid gold background */
+.btn-outline-warning.active {
+    background-color: var(--accent-warning) !important;
+    color: #001427 !important;
 }
 
 /* =============================================
@@ -219,23 +218,19 @@ input[type="search"]::placeholder,
     cursor: pointer;
 }
 
-/* SOLID YELLOW HOVER EFFECTS: Calculate Risk Score Button */
-#submit-assessment,
-.card-body button.btn-warning,
-button[onclick*="calculateRisk"] {
-    background-color: #ffcb05 !important; /* Solid Yellow Default */
+/* ONLY THIS BUTTON: Solid Yellow Calculate Risk Score Button */
+#submit-assessment {
+    background-color: #ffcb05 !important;
     border: 2px solid #ffcb05 !important;
-    color: #001427 !important;            /* Dark text for contrast */
+    color: #001427 !important;
     font-weight: bold !important;
     border-radius: 6px;
     padding: 10px 24px;
     transition: all 0.2s ease-in-out !important;
 }
 
-#submit-assessment:hover,
-.card-body button.btn-warning:hover,
-button[onclick*="calculateRisk"]:hover {
-    background-color: #e0b304 !important; /* Smoothly dims to an amber-yellow on hover */
+#submit-assessment:hover {
+    background-color: #e0b304 !important;
     border-color: #e0b304 !important;
     color: #001427 !important;
 }
