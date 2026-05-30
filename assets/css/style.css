@@ -114,7 +114,6 @@ body > div.container.mt-5.pt-5 > div > div > p {
 }
 
 /* ULTRA-TARGETED OVERRIDE FOR THE WORD 'PROGRESS' */
-/* Forces the label to stand out in a bright, clean silver-white color */
 .progress-bar-wrapper small,
 .progress-bar-wrapper .text-muted,
 div.d-flex.justify-content-between.align-items-center small,
@@ -127,23 +126,25 @@ small.text-muted {
     letter-spacing: 0.5px;
 }
 
-/* UNIFIED INTERACTIVE BUTTON STYLE: Reset Checklist Button */
+/* SOLID YELLOW HOVER EFFECTS: Reset Checklist Button */
 .btn-outline-warning,
 button[onclick*="resetChecklist"],
 #checklist-container + div button,
 .card-body button.btn-outline-light {
-    background-color: transparent !important;
+    background-color: #ffcb05 !important; /* Solid Yellow Default */
     border: 2px solid #ffcb05 !important;
-    color: #ffcb05 !important;
+    color: #001427 !important;            /* Dark text for contrast */
     font-weight: bold !important;
-    transition: all 0.25s ease-in-out !important;
+    border-radius: 6px;
+    transition: all 0.2s ease-in-out !important;
 }
 
 .btn-outline-warning:hover,
 button[onclick*="resetChecklist"]:hover,
 #checklist-container + div button:hover,
 .card-body button.btn-outline-light:hover {
-    background-color: #ffcb05 !important;
+    background-color: #e0b304 !important; /* Smoothly dims to an amber-yellow on hover */
+    border-color: #e0b304 !important;
     color: #001427 !important;
 }
 
@@ -218,22 +219,23 @@ input[type="search"]::placeholder,
     cursor: pointer;
 }
 
-/* UNIFIED INTERACTIVE BUTTON STYLE: Calculate Risk Score Button */
+/* SOLID YELLOW HOVER EFFECTS: Calculate Risk Score Button */
 #submit-assessment,
 .card-body button.btn-warning,
 button[onclick*="calculateRisk"] {
-    background-color: transparent !important;
+    background-color: #ffcb05 !important; /* Solid Yellow Default */
     border: 2px solid #ffcb05 !important;
-    color: #ffcb05 !important;
+    color: #001427 !important;            /* Dark text for contrast */
     font-weight: bold !important;
     border-radius: 6px;
     padding: 10px 24px;
-    transition: all 0.25s ease-in-out !important;
+    transition: all 0.2s ease-in-out !important;
 }
 
 #submit-assessment:hover,
 .card-body button.btn-warning:hover,
 button[onclick*="calculateRisk"]:hover {
-    background-color: #ffcb05 !important;
-    color: #001427 !important; /* Elegant text color transition when active */
+    background-color: #e0b304 !important; /* Smoothly dims to an amber-yellow on hover */
+    border-color: #e0b304 !important;
+    color: #001427 !important;
 }
