@@ -113,22 +113,34 @@ body > div.container.mt-5.pt-5 > div > div > p {
     background-color: #ffcb05;
 }
 
-/* CRITICAL FIX: Forces the 'Progress' label text above the bar to be pure bright white */
-.d-flex.justify-content-between.align-items-center span.text-muted,
-.d-flex.justify-content-between.align-items-center span {
+/* CRITICAL OVERRIDE FOR THE WORD 'PROGRESS' */
+span.text-muted.position-absolute,
+.card-body span.text-muted,
+.d-flex.justify-content-between.align-items-center span,
+.progress-bar-wrapper small {
     color: #ffffff !important;
     opacity: 1 !important;
+    display: inline-block !important;
     font-weight: bold !important;
 }
 
-/* Alternative Reset Button component styles */
-.btn-outline-warning {
-    border-color: var(--accent-warning) !important;
-    color: var(--accent-warning) !important;
+/* UNIFIED INTERACTIVE BUTTON STYLE: Reset Checklist Button */
+.btn-outline-warning,
+button[onclick*="resetChecklist"],
+#checklist-container + div button,
+.card-body button.btn-outline-light {
+    background-color: transparent !important;
+    border: 2px solid #ffcb05 !important;
+    color: #ffcb05 !important;
+    font-weight: bold !important;
+    transition: all 0.25s ease-in-out !important;
 }
 
-.btn-outline-warning:hover {
-    background-color: var(--accent-warning) !important;
+.btn-outline-warning:hover,
+button[onclick*="resetChecklist"]:hover,
+#checklist-container + div button:hover,
+.card-body button.btn-outline-light:hover {
+    background-color: #ffcb05 !important;
     color: #001427 !important;
 }
 
@@ -150,13 +162,14 @@ input[type="search"]::placeholder,
     opacity: 1 !important;             /* Prevents browser from applying transparent fade */
 }
 
-/* CRITICAL FIX: Force dark text on active/selected buttons so you can read them! */
+/* LEVEL BUTTONS SELECTORS: Targets the active button filter layout blocks */
 .btn-group .btn-outline-warning.active,
 .btn-group .btn-outline-warning:hover,
 .btn-outline-warning.active,
-.btn-outline-warning:hover {
+.btn-outline-warning:hover,
+.btn-check:checked + .btn-outline-warning {
     background-color: #ffcb05 !important;
-    color: #001427 !important;          /* Deep dark blue text over the yellow background */
+    color: #001427 !important;          /* Dark blue text fill over the solid gold background */
 }
 
 /* =============================================
@@ -202,11 +215,22 @@ input[type="search"]::placeholder,
     cursor: pointer;
 }
 
-/* Main Submission Button Configuration */
-#submit-assessment {
-    background-color: #ffcb05 !important;
-    color: #001427 !important;
-    font-weight: bold;
+/* UNIFIED INTERACTIVE BUTTON STYLE: Calculate Risk Score Button */
+#submit-assessment,
+.card-body button.btn-warning,
+button[onclick*="calculateRisk"] {
+    background-color: transparent !important;
+    border: 2px solid #ffcb05 !important;
+    color: #ffcb05 !important;
+    font-weight: bold !important;
     border-radius: 6px;
     padding: 10px 24px;
+    transition: all 0.25s ease-in-out !important;
+}
+
+#submit-assessment:hover,
+.card-body button.btn-warning:hover,
+button[onclick*="calculateRisk"]:hover {
+    background-color: #ffcb05 !important;
+    color: #001427 !important; /* Elegant text color transition when active */
 }
