@@ -7,7 +7,7 @@
     --bg-card: #001f3f;
     --accent-warning: #ffcb05;
     --text-light: #d1d5db;        /* Soft gray-white - much easier on eyes */
-    --text-muted: #94a3b8;
+    --text-muted: #e2e8f0;        /* FIXED: Lifted to clear white-gray for top visibility */
     --border-color: #ffcb05;
 }
 
@@ -17,6 +17,11 @@ body {
     color: var(--text-light);
     font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
     line-height: 1.6;
+}
+
+/* Subtitles text visibility fix */
+p.lead, .text-muted, [class*="subtitle"], body > div > p {
+    color: #cbd5e1 !important;    /* Crisp, highly readable soft white */
 }
 
 /* Navbar Links and Branding */
@@ -36,8 +41,9 @@ body {
     border-radius: 12px;
 }
 
-.lead {
-    color: var(--text-muted);
+/* Overwrite card inner body padding specifically for the questionnaire card to allow full stretch */
+#questionnaire-container {
+    padding: 4px 0px !important;
 }
 
 /* Headers Clear High-Contrast Visibility */
@@ -95,53 +101,52 @@ body {
     color: #001427 !important;
 }
 
-
 /* =============================================
    RISK ASSESSMENT QUESTIONNAIRE STYLING
-   (Perfectly thinned down to mirror the checklist bars)
    ============================================= */
 
-/* Thinned out questionnaire rows to perfectly match compliance item bars */
+/* Ultra-thin questionnaire item rows stretched cleanly across the box */
 .question-row {
     background-color: var(--bg-card) !important; 
     border: 1px solid rgba(255, 203, 5, 0.25);
-    margin-bottom: 10px !important;              /* Exactly matches checklist spacing */
-    padding: 10px 16px !important;                /* Reduced from 14px to 10px to make them thin and sleek */
-    border-radius: 10px;
-    width: 100%;                                 
-    display: block;
-    transition: all 0.25s ease;
+    margin-bottom: 10px !important;              
+    padding: 10px 16px !important;                /* Clean, thin vertical tracking height */
+    border-radius: 8px;
+    width: 100% !important;                       /* Maximizes edge-to-edge layout width */
+    transition: all 0.2s ease;
 }
 
 /* Interactive feedback on hovering a questionnaire choice box */
 .question-row:hover {
-    background-color: #002b55 !important;        /* Matches checklist hover background exactly */
+    background-color: #002b55 !important;        
     border-color: #ffcb05;
 }
 
-/* Thinned text and tight alignment parameters inside rows */
+/* Question label text formatting */
 .question-row p.fw-semibold {
-    color: #e2e8f0 !important;                   
-    font-size: 1.02rem;
-    margin-bottom: 4px !important;               /* Reduced text bottom margin to close up gap */
+    color: #ffffff !important;                   /* Crisp white clarity */
+    font-size: 0.98rem;
     line-height: 1.4;
+    padding-right: 20px;                         /* Protects space before radio block */
 }
 
-/* Label text contrast parameters inside questionnaire options */
+/* Radio alignment box wrapper */
+.question-row .radio-options {
+    gap: 4px;
+}
+
+/* Individual label modifications */
 .question-row .form-check-label {
-    color: #e2e8f0 !important;                   
+    color: #ffffff !important;                   
     margin-left: 6px;
-    margin-right: 24px;
+    font-size: 0.95rem;
     font-weight: 500;
-    font-size: 0.98rem;                          /* Slightly tightened label sizing */
     cursor: pointer;
 }
 
-/* Centers the inline checkbox/radio configurations cleanly within custom thin rows */
-.question-row .form-check-inline {
-    display: inline-flex;
-    align-items: center;
-    margin-top: 0px;                             /* Removed top pull to keep row compact */
+/* Placeholder description text visibility fix */
+#results-placeholder p {
+    color: #94a3b8 !important;                    /* Soft yet fully visible text color inside results card */
 }
 
 /* Main Submission Button Configuration */

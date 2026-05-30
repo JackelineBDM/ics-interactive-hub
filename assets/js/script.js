@@ -26,17 +26,19 @@ document.addEventListener('DOMContentLoaded', () => {
         function renderQuestionnaire() {
             let html = '<form id="risk-form">';
             questions.forEach((q, index) => {
-                // FIXED CLASS: Added 'question-row' for sleek, stretched blue background blocks
+                // FIXED LAYOUT: Uses flex alignment to keep text and radio options on a single, thin line
                 html += `
-                    <div class="question-row mb-2">
-                        <p class="fw-semibold mb-2">${index + 1}. ${q.text}</p>
-                        <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="q${q.id}" value="yes" id="q${q.id}yes">
-                            <label class="form-check-label" for="q${q.id}yes">Yes</label>
-                        </div>
-                        <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="q${q.id}" value="no" id="q${q.id}no">
-                            <label class="form-check-label" for="q${q.id}no">No</label>
+                    <div class="question-row d-flex align-items-center justify-content-between mb-2">
+                        <p class="fw-semibold m-0">${index + 1}. ${q.text}</p>
+                        <div class="radio-options d-flex align-items-center flex-shrink-0">
+                            <div class="form-check form-check-inline m-0 me-3">
+                                <input class="form-check-input" type="radio" name="q${q.id}" value="yes" id="q${q.id}yes">
+                                <label class="form-check-label text-white" for="q${q.id}yes">Yes</label>
+                            </div>
+                            <div class="form-check form-check-inline m-0">
+                                <input class="form-check-input" type="radio" name="q${q.id}" value="no" id="q${q.id}no">
+                                <label class="form-check-label text-white" for="q${q.id}no">No</label>
+                            </div>
                         </div>
                     </div>`;
             });
@@ -44,7 +46,6 @@ document.addEventListener('DOMContentLoaded', () => {
             questionnaireContainer.innerHTML = html;
         }
 
-        // FIXED VALIDATION & CALCULATION ACTIVATION
         if (submitBtn) {
             submitBtn.addEventListener('click', () => {
                 const answered = document.querySelectorAll('input[type="radio"]:checked').length;
@@ -55,7 +56,6 @@ document.addEventListener('DOMContentLoaded', () => {
                     return;
                 }
 
-                // All answered → calculate and show results
                 const scoreData = calculateScore();
                 renderResults(scoreData);
             });
@@ -99,7 +99,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
         window.saveAssessment = () => alert("✅ Assessment saved!");
 
-        // Initialize
         renderQuestionnaire();
         if (submitBtn) submitBtn.disabled = false;
     }
