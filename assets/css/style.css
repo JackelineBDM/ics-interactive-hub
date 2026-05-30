@@ -7,7 +7,7 @@
     --bg-card: #001f3f;
     --accent-warning: #ffcb05;
     --text-light: #d1d5db;        /* Soft gray-white - much easier on eyes */
-    --text-muted: #cbd5e1;        /* FIXED: Light silver gray for clear visibility */
+    --text-muted: #cbd5e1;        /* Light silver gray for clear visibility */
     --border-color: #ffcb05;
 }
 
@@ -113,11 +113,14 @@ body > div.container.mt-5.pt-5 > div > div > p {
     background-color: #ffcb05;
 }
 
-/* FIXED: Forces the 'Progress' label text above the bar to be high-contrast and clear */
-.progress-container text,
-div.d-flex.justify-content-between.align-items-center > span {
-    color: #cbd5e1 !important;
+/* FIXED: Hammer-force the small 'Progress' label text to be bright silver-white regardless of Bootstrap rules */
+div.d-flex.justify-content-between.align-items-center > span.text-muted,
+.progress-bar-wrapper small,
+div.d-flex.justify-content-between.align-items-center span,
+.card-body div.d-flex.justify-content-between.align-items-center span {
+    color: #e2e8f0 !important;
     opacity: 1 !important;
+    font-weight: 600 !important;
 }
 
 /* Alternative Reset Button component styles */
@@ -135,7 +138,7 @@ div.d-flex.justify-content-between.align-items-center > span {
    LIVE THREAT MATRIX STYLING & SEARCH FIXES
    ============================================= */
 
-/* FIXED: Restores bright visibility to input text and placeholder hint "Search threats..." */
+/* Restores bright visibility to input text and placeholder hint "Search threats..." */
 input[type="search"], 
 .form-control {
     color: #ffffff !important;         /* User typed text color */
@@ -147,6 +150,26 @@ input[type="search"]::placeholder,
 .form-control::placeholder {
     color: #94a3b8 !important;         /* Crisp soft silver color for placeholder text */
     opacity: 1 !important;             /* Prevents browser from applying transparent fade */
+}
+
+/* FIXED: Level Filter Buttons Text Contrast Fix (Active vs Normal States) */
+.btn-group .btn-outline-warning,
+.filter-btn,
+[id^="filter-"] {
+    color: #ffcb05 !important;         /* Unselected button text is clear yellow gold */
+    border-color: #ffcb05 !important;
+}
+
+/* When active, selected, or hovered, invert text to dark blue so it is completely legible against the solid gold background! */
+.btn-group .btn-outline-warning.active,
+.btn-group .btn-outline-warning:class(*active),
+.filter-btn.active,
+.filter-btn:hover,
+[id^="filter-"].active,
+.btn-outline-warning:checked + .btn,
+.btn-check:checked + .btn-outline-warning {
+    background-color: #ffcb05 !important;
+    color: #001427 !important;          /* Deep dark blue text for flawless visibility over yellow */
 }
 
 /* =============================================
