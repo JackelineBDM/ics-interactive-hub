@@ -1,6 +1,5 @@
 /* =============================================
-   ICS Risk Assessment Hub - FINAL SOFT TEXT STYLES
-   Softer gray-white text for eye comfort
+   ICS Risk Assessment Hub - COMPLETE MASTER STYLES
    ============================================= */
 
 :root {
@@ -12,7 +11,7 @@
     --border-color: #ffcb05;
 }
 
-/* Global */
+/* Global Styles */
 body {
     background-color: var(--bg-dark);
     color: var(--text-light);
@@ -20,7 +19,7 @@ body {
     line-height: 1.6;
 }
 
-/* Navbar */
+/* Navbar Links and Branding */
 .navbar {
     background-color: var(--bg-dark) !important;
     border-bottom: 3px solid var(--accent-warning) !important;
@@ -30,14 +29,26 @@ body {
     color: var(--accent-warning) !important;
 }
 
-/* Cards */
+/* Main Cards Layout Structure */
 .card {
     background-color: var(--bg-card);
     border: 2px solid var(--border-color);
     border-radius: 12px;
 }
 
-/* CHECKLIST */
+.lead {
+    color: var(--text-muted);
+}
+
+/* Headers Clear High-Contrast Visibility */
+.card-header, h3, h4, .card-title {
+    color: #ffeb9f !important;
+    font-weight: 700;
+}
+
+/* =============================================
+   COMPLIANCE CHECKLIST PAGE STYLING
+   ============================================= */
 #checklist-container .form-check {
     padding: 16px 18px;
     margin-bottom: 10px;
@@ -63,7 +74,7 @@ body {
     transform: scale(1.15);
 }
 
-/* Progress Bar */
+/* Progress Tracking Bar component elements */
 .progress {
     height: 14px;
     background-color: #002b55;
@@ -73,30 +84,69 @@ body {
     background-color: #ffcb05;
 }
 
-/* Buttons */
-.btn-warning {
-    background-color: var(--accent-warning);
-    color: #001427;
-    font-weight: 700;
+/* Alternative Reset Button component styles */
+.btn-outline-warning {
+    border-color: var(--accent-warning) !important;
+    color: var(--accent-warning) !important;
 }
 
-.lead {
-    color: var(--text-muted);
-}
-/* QUICK FIX FOR VISIBILITY */
-.card-header, h3, h4, .card-title {
-    color: #ffeb9f !important;
-    font-weight: 700;
+.btn-outline-warning:hover {
+    background-color: var(--accent-warning) !important;
+    color: #001427 !important;
 }
 
-#questionnaire-container p, 
-#questionnaire-container label {
-    color: #e2e8f0 !important;
+
+/* =============================================
+   RISK ASSESSMENT QUESTIONNAIRE STYLING
+   (Mirrors the checklist thin & stretched layout perfectly)
+   ============================================= */
+
+/* Sleek questionnaire item rows mimicking compliance block blue layout */
+.question-row {
+    background-color: var(--bg-card) !important; /* Forces the exact same dark blue container look */
+    border: 1px solid rgba(255, 203, 5, 0.25);
+    margin-bottom: 12px !important;              /* Clean layout separation between individual cards */
+    padding: 14px 18px !important;                /* Perfect thin vertical height constraints */
+    border-radius: 10px;
+    width: 100%;                                 /* Stretches the inner rows completely across the card element */
+    display: block;
+    transition: all 0.25s ease;
 }
 
-/* Make Calculate button more obvious */
+/* Interactive feedback on hovering a questionnaire choice box */
+.question-row:hover {
+    background-color: #002b55 !important;
+    border-color: #ffcb05;
+}
+
+/* Text visibility inside questionnaire blocks */
+.question-row p.fw-semibold {
+    color: #e2e8f0 !important;                   /* Restores comfortable text color choices for questions */
+    font-size: 1.02rem;
+    margin-bottom: 8px !important;
+}
+
+/* Label text contrast parameters inside questionnaire options */
+.question-row .form-check-label {
+    color: #e2e8f0 !important;                   /* Restores comfortable text color choices for radio choices */
+    margin-left: 6px;
+    margin-right: 24px;
+    font-weight: 500;
+    cursor: pointer;
+}
+
+/* Centers the inline checkbox/radio configurations cleanly within custom thin rows */
+.question-row .form-check-inline {
+    display: inline-flex;
+    align-items: center;
+    margin-top: 2px;
+}
+
+/* Main Submission Button Configuration */
 #submit-assessment {
     background-color: #ffcb05 !important;
     color: #001427 !important;
     font-weight: bold;
+    border-radius: 6px;
+    padding: 10px 24px;
 }
