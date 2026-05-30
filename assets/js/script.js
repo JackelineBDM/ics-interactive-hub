@@ -26,7 +26,6 @@ document.addEventListener('DOMContentLoaded', () => {
         function renderQuestionnaire() {
             let html = '<form id="risk-form">';
             questions.forEach((q, index) => {
-                // FIXED LAYOUT: Uses flex alignment to keep text and radio options on a single, thin line
                 html += `
                     <div class="question-row d-flex align-items-center justify-content-between mb-2">
                         <p class="fw-semibold m-0">${index + 1}. ${q.text}</p>

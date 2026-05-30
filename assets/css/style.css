@@ -7,7 +7,7 @@
     --bg-card: #001f3f;
     --accent-warning: #ffcb05;
     --text-light: #d1d5db;        /* Soft gray-white - much easier on eyes */
-    --text-muted: #e2e8f0;        /* FIXED: Lifted to clear white-gray for top visibility */
+    --text-muted: #e2e8f0;        
     --border-color: #ffcb05;
 }
 
@@ -19,9 +19,28 @@ body {
     line-height: 1.6;
 }
 
-/* Subtitles text visibility fix */
-p.lead, .text-muted, [class*="subtitle"], body > div > p {
-    color: #cbd5e1 !important;    /* Crisp, highly readable soft white */
+/* HIGH VISIBILITY CONTRAST FIXES FOR SUBTITLES & INFOTEXT */
+p.lead, 
+body > div > p,
+.container p:not(.fw-semibold):not(.form-check-label) {
+    color: #e2e8f0 !important;    /* Bright, crisp silver-white for top subtitles */
+    font-size: 1.05rem;
+    font-weight: 400;
+}
+
+/* High contrast visibility fix for the right-hand side initial placeholder text */
+#results-placeholder p,
+.card-body #results-placeholder {
+    color: #cbd5e1 !important;    /* Clear, readable silver for the empty results text */
+    font-size: 1.02rem !important;
+}
+
+/* High contrast visibility fix for the footer academic prototype text */
+footer p, 
+.footer p,
+body > div.container.mt-5.pt-5 > div > div > p,
+p:contains("Academic Prototype") {
+    color: #94a3b8 !important;    /* Noticeably lighter gray for engineering standards footnotes */
 }
 
 /* Navbar Links and Branding */
@@ -142,11 +161,6 @@ p.lead, .text-muted, [class*="subtitle"], body > div > p {
     font-size: 0.95rem;
     font-weight: 500;
     cursor: pointer;
-}
-
-/* Placeholder description text visibility fix */
-#results-placeholder p {
-    color: #94a3b8 !important;                    /* Soft yet fully visible text color inside results card */
 }
 
 /* Main Submission Button Configuration */
