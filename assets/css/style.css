@@ -113,15 +113,18 @@ body > div.container.mt-5.pt-5 > div > div > p {
     background-color: #ffcb05;
 }
 
-/* CRITICAL OVERRIDE FOR THE WORD 'PROGRESS' */
-span.text-muted.position-absolute,
-.card-body span.text-muted,
-.d-flex.justify-content-between.align-items-center span,
-.progress-bar-wrapper small {
-    color: #ffffff !important;
+/* ULTRA-TARGETED OVERRIDE FOR THE WORD 'PROGRESS' */
+/* Forces the label to stand out in a bright, clean silver-white color */
+.progress-bar-wrapper small,
+.progress-bar-wrapper .text-muted,
+div.d-flex.justify-content-between.align-items-center small,
+div.d-flex.justify-content-between.align-items-center .text-muted,
+span.text-muted,
+small.text-muted {
+    color: #e2e8f0 !important;
     opacity: 1 !important;
-    display: inline-block !important;
-    font-weight: bold !important;
+    font-weight: 600 !important;
+    letter-spacing: 0.5px;
 }
 
 /* UNIFIED INTERACTIVE BUTTON STYLE: Reset Checklist Button */
