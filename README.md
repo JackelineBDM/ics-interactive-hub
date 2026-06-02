@@ -17,7 +17,7 @@ A dynamic, interactive frontend web application designed to help plant managers 
 ## UX Design – The 5 Planes
 
 * **Strategy:** Help non-technical plant managers make informed ICS security decisions.
-* **Scope:** Three interactive pages – Risk Calculator, Live Threat Matrix, and SL2 Compliance Checklist.
+* **Scope:** Three interactive pages – Risk Calculator (`index.html`), Live Threat Matrix (`threats.html`), and SL2 Compliance Checklist (`compliance.html`).
 * **Structure:** Clean Bootstrap navbar + card-based layout with consistent navigation.
 * **Skeleton:** Responsive grid design with clear visual hierarchy and intuitive interaction points.
 * **Surface:** Professional industrial dark theme with high-visibility safety yellow accents and excellent contrast.
