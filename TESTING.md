@@ -103,16 +103,23 @@ All identified bugs were functional or usability issues rather than critical log
 
 ## 7. Evidence – Screenshots
 
-All screenshots were taken from the **live deployed site**.
+All screenshots below were taken directly from the **live deployed site** after final implementation. They provide visual proof that the core interactive features are functioning correctly.
 
-| Screenshot | Description                                      | File Name                  | User Story |
-|------------|--------------------------------------------------|----------------------------|------------|
-| 1          | Risk Assessment results showing percentage and recommendation | `risk-results.png`         | US1        |
-| 2          | Threat Matrix with active Purdue Level filter    | `threat-matrix-filter.png` | US2        |
-| 3          | SL2 Checklist showing progress bar at ~60%       | `checklist-progress.png`   | US3        |
-| 4          | Mobile responsive view of the Risk Assessment page | `mobile-view.png`          | US8        |
+### 1. Risk Assessment Results
+**Description:** User completes the questionnaire and receives an instant risk score with recommendation.  
+![Risk Assessment Results](./screenshots/risk-results.png)
 
-> **Note to self:** Add the actual screenshots into a folder called `screenshots/` and update the file names above.
+### 2. Live Threat Matrix with Active Filter
+**Description:** Real-time search and Purdue Level filtering working correctly.  
+![Threat Matrix Filter](./screenshots/threat-matrix-filter.png)
+
+### 3. SL2 Compliance Checklist Progress
+**Description:** Live progress bar updating as controls are checked.  
+![Checklist Progress](./screenshots/checklist-progress.png)
+
+### 4. Mobile Responsive View
+**Description:** Risk Assessment page displayed in mobile view using browser DevTools.  
+![Mobile View](./screenshots/mobile-view.png)
 
 ---
 
