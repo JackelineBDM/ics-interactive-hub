@@ -29,17 +29,28 @@ All testing was performed on both the live GitHub Pages deployment and locally u
 | W3C CSS Validator       | **Pass**   | No errors                                  | Verified          |
 | Browser Console         | **Clean**  | No JavaScript errors on any page           | Verified across all pages |
 
-### 2.2 Google Lighthouse Audit
+### 2.2 Google Lighthouse Audit (Live Site – 11 June 2026)
 
-| Category          | Score | Status      | Interpretation |
-|-------------------|-------|-------------|----------------|
-| **Performance**   | XX    | Good        | To be filled after running Lighthouse |
-| **Accessibility** | XX    | Excellent   | To be filled after running Lighthouse |
-| **Best Practices**| XX    | Excellent   | To be filled after running Lighthouse |
-| **SEO**           | XX    | Good        | To be filled after running Lighthouse |
+| Page              | Performance | Accessibility | Best Practices | SEO  |
+|-------------------|-------------|---------------|----------------|------|
+| **index.html**    | **81**      | **97**        | **96**         | 100  |
+| **threats.html**  | **97**      | **94**        | **96**         | 100  |
+| **compliance.html** | **99**    | **92**        | **96**         | 100  |
 
-> **Note:** Lighthouse scores will be added after running the audit on the live site (see Section 7).
+**Reflections on Performance:**
 
+The Performance score on the main page (index.html) is 81. This is primarily due to:
+- Render-blocking resources from Bootstrap CSS and the Bootstrap Icons font (loaded from CDN).
+- Cumulative Layout Shift (CLS = 0.394) caused by the large Bootstrap Icons font (128 KiB) loading after the initial render.
+
+**Actions taken to mitigate:**
+- Added the `defer` attribute to both script tags.
+- Added `font-display: swap` to reduce layout shift from web fonts.
+- Added `preconnect` and `preload` hints for the Bootstrap Icons font.
+
+While further improvements could be made by self-hosting fonts or using a lighter icon solution, these changes represent a conscious trade-off between development speed (using Bootstrap) and performance optimisation. The excellent Accessibility (97) and perfect SEO (100) scores across all pages demonstrate strong overall quality.
+
+The two supporting pages (Threat Matrix and SL2 Checklist) achieved very high Performance scores (97 and 99), confirming that the core interactive features are well optimised.
 ---
 
 ## 3. Manual Testing – User Stories
