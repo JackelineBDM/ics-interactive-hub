@@ -1,5 +1,6 @@
 // =============================================
 // ICS Risk Assessment Hub - COMPLETE & FIXED
+// All 3 pages fully working
 // =============================================
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -45,21 +46,6 @@ document.addEventListener('DOMContentLoaded', () => {
             questionnaireContainer.innerHTML = html;
         }
 
-        if (submitBtn) {
-            submitBtn.addEventListener('click', () => {
-                const answered = document.querySelectorAll('input[type="radio"]:checked').length;
-
-                if (answered < questions.length) {
-                    const remaining = questions.length - answered;
-                    alert(`❌ Please complete all questions!\n\nYou have answered ${answered} out of 8.\nPlease answer the remaining ${remaining} question(s).`);
-                    return;
-                }
-
-                const scoreData = calculateScore();
-                renderResults(scoreData);
-            });
-        }
-
         function calculateScore() {
             let totalScore = 0;
             const maxScore = questions.reduce((sum, q) => sum + q.points, 0);
@@ -96,14 +82,30 @@ document.addEventListener('DOMContentLoaded', () => {
                 <button onclick="saveAssessment()" class="btn btn-outline-light">Save Assessment</button>`;
         }
 
-        window.saveAssessment = () => alert("✅ Assessment saved!");
+        if (submitBtn) {
+            submitBtn.addEventListener('click', () => {
+                const answered = document.querySelectorAll('input[type="radio"]:checked').length;
+
+                if (answered < questions.length) {
+                    const remaining = questions.length - answered;
+                    alert(`Please complete all questions!\n\nYou have answered ${answered} out of 8.\nPlease answer the remaining ${remaining} question(s).`);
+                    return;
+                }
+
+                const scoreData = calculateScore();
+                renderResults(scoreData);
+            });
+            submitBtn.disabled = false;
+        }
+
+        window.saveAssessment = () => alert("Assessment saved successfully!");
 
         renderQuestionnaire();
-        if (submitBtn) submitBtn.disabled = false;
     }
 
-    // ====================== THREAT MATRIX (SEARCH & CLICK FILTERS) ======================
-    if (document.getElementById('threat-table') || document.getElementById('threat-body')) {
+    // ====================== THREAT MATRIX (threats.html) ======================
+    if (document.getElementById('threat-body')) {
+
         const threatsData = [
             { threat: "Ransomware", description: "Malicious software that encrypts critical OT systems and demands payment.", purdueLevel: "0-1, 2", impact: "High", badgeColor: "danger" },
             { threat: "Stuxnet-style Worm", description: "Targeted malware that damages physical industrial equipment (PLCs).", purdueLevel: "0-1", impact: "Critical", badgeColor: "danger" },
@@ -114,30 +116,15 @@ document.addEventListener('DOMContentLoaded', () => {
         ];
 
         const tableBody = document.getElementById('threat-body');
-        const searchInput = document.querySelector('input[type="search"]') || document.getElementById('threat-search') || document.querySelector('.form-control');
-        const filterButtons = document.querySelectorAll('.btn-group .btn, .filter-btn, [data-level], .btn-outline-warning');
+        const searchInput = document.getElementById('threat-search') || document.querySelector('input[type="search"]');
+        const filterButtons = document.querySelectorAll('.btn-outline-warning');
 
         let currentFilter = 'All Levels';
         let searchQuery = '';
 
-        function renderThreats() {
+        function renderThreats(filteredData) {
             if (!tableBody) return;
             tableBody.innerHTML = '';
-
-            const filteredData = threatsData.filter(t => {
-                let matchesLevel = false;
-                if (currentFilter === 'All Levels' || currentFilter === 'all') {
-                    matchesLevel = true;
-                } else {
-                    const cleanLevel = currentFilter.replace('Level ', '').trim();
-                    matchesLevel = t.purdueLevel.includes(cleanLevel);
-                }
-
-                const matchesSearch = t.threat.toLowerCase().includes(searchQuery) || 
-                                      t.description.toLowerCase().includes(searchQuery);
-
-                return matchesLevel && matchesSearch;
-            });
 
             if (filteredData.length === 0) {
                 tableBody.innerHTML = `<tr><td colspan="4" class="text-center text-muted py-4">No matching threats found.</td></tr>`;
@@ -145,121 +132,122 @@ document.addEventListener('DOMContentLoaded', () => {
             }
 
             filteredData.forEach(t => {
-                const row = `<tr>
-                    <td><strong>${t.threat}</strong></td>
-                    <td>${t.description}</td>
-                    <td><span class="badge bg-warning text-dark fw-bold">${t.purdueLevel}</span></td>
-                    <td><span class="badge bg-${t.badgeColor}">${t.impact}</span></td>
-                </tr>`;
+                const row = `
+                    <tr>
+                        <td><strong>${t.threat}</strong></td>
+                        <td>${t.description}</td>
+                        <td><span class="badge bg-warning text-dark fw-bold">${t.purdueLevel}</span></td>
+                        <td><span class="badge bg-${t.badgeColor}">${t.impact}</span></td>
+                    </tr>`;
                 tableBody.innerHTML += row;
             });
+        }
+
+        function filterAndRender() {
+            const filtered = threatsData.filter(t => {
+                const matchesLevel = (currentFilter === 'All Levels') || t.purdueLevel.includes(currentFilter.replace('Level ', ''));
+                const matchesSearch = t.threat.toLowerCase().includes(searchQuery) || 
+                                      t.description.toLowerCase().includes(searchQuery);
+                return matchesLevel && matchesSearch;
+            });
+            renderThreats(filtered);
         }
 
         if (searchInput) {
             searchInput.addEventListener('input', (e) => {
                 searchQuery = e.target.value.toLowerCase();
-                renderThreats();
+                filterAndRender();
             });
         }
 
         if (filterButtons.length > 0) {
             filterButtons.forEach(btn => {
-                btn.addEventListener('click', (e) => {
-                    e.preventDefault();
+                btn.addEventListener('click', () => {
                     filterButtons.forEach(b => b.classList.remove('active'));
                     btn.classList.add('active');
                     currentFilter = btn.textContent.trim();
-                    renderThreats();
+                    filterAndRender();
                 });
             });
         }
 
-        renderThreats();
+        // Initial render
+        renderThreats(threatsData);
     }
 
     // ====================== SL2 COMPLIANCE CHECKLIST (compliance.html) ======================
-if (document.getElementById('checklist-container')) {
+    if (document.getElementById('checklist-container')) {
 
-    const container = document.getElementById('checklist-container');
+        const container = document.getElementById('checklist-container');
 
-    // Your existing checklist data (keep this)
-    const checklistItems = [
-        { id: 'c1', text: 'Implement network segmentation between Purdue Levels' },
-        { id: 'c2', text: 'Enforce least privilege access control for engineers and contractors' },
-        { id: 'c3', text: 'Deploy monitoring and anomaly detection on Level 0-2' },
-        { id: 'c4', text: 'Establish patch management process for OT systems' },
-        { id: 'c5', text: 'Control and monitor all remote access to ICS' },
-        { id: 'c6', text: 'Implement secure conduits between zones per IEC 62443' },
-        { id: 'c7', text: 'Enforce USB and removable media policies' },
-        { id: 'c8', text: 'Conduct regular ICS cybersecurity awareness training' }
-    ];
+        const checklistItems = [
+            { id: 'c1', text: 'Implement network segmentation between Purdue Levels' },
+            { id: 'c2', text: 'Enforce least privilege access control for engineers and contractors' },
+            { id: 'c3', text: 'Deploy monitoring and anomaly detection on Level 0-2' },
+            { id: 'c4', text: 'Establish patch management process for OT systems' },
+            { id: 'c5', text: 'Control and monitor all remote access to ICS' },
+            { id: 'c6', text: 'Implement secure conduits between zones per IEC 62443' },
+            { id: 'c7', text: 'Enforce USB and removable media policies' },
+            { id: 'c8', text: 'Conduct regular ICS cybersecurity awareness training' }
+        ];
 
-    // Render checklist items
-    let html = '';
-    checklistItems.forEach(item => {
-        html += `
-            <div class="form-check mb-3">
-                <input class="form-check-input" type="checkbox" id="${item.id}">
-                <label class="form-check-label" for="${item.id}">
-                    ${item.text}
-                </label>
-            </div>
-        `;
-    });
-    container.innerHTML = html;
+        // Render checklist
+        let html = '';
+        checklistItems.forEach(item => {
+            html += `
+                <div class="form-check mb-3">
+                    <input class="form-check-input" type="checkbox" id="${item.id}">
+                    <label class="form-check-label" for="${item.id}">${item.text}</label>
+                </div>`;
+        });
+        container.innerHTML = html;
 
-    // Now safely get all checkboxes (after they are rendered)
-    const checkboxes = container.querySelectorAll('input[type="checkbox"]');
+        const checkboxes = container.querySelectorAll('input[type="checkbox"]');
 
-    const updateProgress = () => {
-        const totalControls = checkboxes.length;
-        const checked = container.querySelectorAll('input:checked').length;
-        const pct = totalControls > 0 ? (checked / totalControls) * 100 : 0;
+        const updateProgress = () => {
+            const totalControls = checkboxes.length;
+            const checked = container.querySelectorAll('input:checked').length;
+            const pct = totalControls > 0 ? (checked / totalControls) * 100 : 0;
 
-        const progressBar = document.getElementById('progress-bar');
-        const progressText = document.getElementById('progress-text');
+            const progressBar = document.getElementById('progress-bar');
+            const progressText = document.getElementById('progress-text');
 
-        if (progressBar) progressBar.style.width = pct + '%';
-        if (progressText) {
-            progressText.textContent = `${checked}/${totalControls} controls (${Math.round(pct)}%)`;
+            if (progressBar) progressBar.style.width = pct + '%';
+            if (progressText) {
+                progressText.textContent = `${checked}/${totalControls} controls (${Math.round(pct)}%)`;
+            }
+
+            // Save to localStorage
+            let state = {};
+            checkboxes.forEach(cb => state[cb.id] = cb.checked);
+            localStorage.setItem('icsChecklist', JSON.stringify(state));
+        };
+
+        // Load saved state
+        const savedState = localStorage.getItem('icsChecklist');
+        if (savedState) {
+            const state = JSON.parse(savedState);
+            checkboxes.forEach(cb => {
+                if (state[cb.id] !== undefined) cb.checked = state[cb.id];
+            });
         }
 
-        // Save state to localStorage
-        let state = {};
-        checkboxes.forEach(cb => {
-            state[cb.id] = cb.checked;
-        });
-        localStorage.setItem('icsChecklist', JSON.stringify(state));
-    };
+        checkboxes.forEach(cb => cb.addEventListener('change', updateProgress));
 
-    // Load saved state from localStorage
-    const savedState = localStorage.getItem('icsChecklist');
-    if (savedState) {
-        const state = JSON.parse(savedState);
-        checkboxes.forEach(cb => {
-            if (state[cb.id] !== undefined) {
-                cb.checked = state[cb.id];
+        // Reset with confirmation
+        const resetChecklist = () => {
+            if (confirm("Are you sure you want to reset all compliance progress tracking values?")) {
+                checkboxes.forEach(cb => cb.checked = false);
+                localStorage.removeItem('icsChecklist');
+                updateProgress();
+                alert("Checklist progress has been cleared successfully.");
             }
-        });
+        };
+
+        window.resetChecklist = resetChecklist;
+
+        updateProgress();
     }
 
-    // Attach listeners
-    checkboxes.forEach(cb => {
-        cb.addEventListener('change', updateProgress);
-    });
-
-    // ==================== RESET WITH CONFIRMATION ====================
-    const resetChecklist = () => {
-        if (confirm("Are you sure you want to reset all compliance progress tracking values?")) {
-            checkboxes.forEach(cb => cb.checked = false);
-            localStorage.removeItem('icsChecklist');
-            updateProgress();
-            alert("✅ Checklist progress has been cleared successfully.");
-        }
-    };
-
-    window.resetChecklist = resetChecklist;
-
-    // Initial progress update
-    updateProgress();
-}
+    console.log('%c[ICS Hub] All features initialized successfully', 'color: #ffcb05');
+});
