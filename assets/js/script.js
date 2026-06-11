@@ -177,61 +177,89 @@ document.addEventListener('DOMContentLoaded', () => {
         renderThreats();
     }
 
-    // ====================== SL2 CHECKLIST (FIXED RESET) ======================
-    if (document.getElementById('checklist-container')) {
-        const checklistItems = [
-            "Implement network segmentation between Purdue Levels", 
-            "Enforce strict access control and least privilege", 
-            "Deploy firewalls and conduits per IEC 62443", 
-            "Establish patch management process for OT systems", 
-            "Restrict remote access to ICS/OT networks", 
-            "Enforce removable media (USB) controls", 
-            "Implement continuous network monitoring", 
-            "Provide regular ICS cybersecurity awareness training"
-        ];
+    // ====================== SL2 COMPLIANCE CHECKLIST (compliance.html) ======================
+if (document.getElementById('checklist-container')) {
 
-        const container = document.getElementById('checklist-container');
-        let html = '';
-        checklistItems.forEach((text, i) => {
-            html += `
-                <div class="form-check mb-3 p-3 rounded style-checklist-row">
-                    <input class="form-check-input ms-1" type="checkbox" id="c${i}">
-                    <label class="form-check-label ms-2 text-white" for="c${i}">${text}</label>
-                </div>`;
-        });
-        container.innerHTML = html;
+    const container = document.getElementById('checklist-container');
 
-        const updateProgress = () => {
-            const totalControls = checklistItems.length;
-            const checked = container.querySelectorAll('input:checked').length;
-            const pct = (checked / totalControls) * 100;
-            
-            const progressBar = document.getElementById('progress-bar') || document.querySelector('.progress-bar');
-            const progressText = document.getElementById('progress-text') || document.querySelector('.progress-text-element');
-            
-            if (progressBar) progressBar.style.width = pct + '%';
-            if (progressText) {
-                progressText.textContent = `${checked}/${totalControls} controls (${Math.round(pct)}%)`;
-            }
-        };
+    // Your existing checklist data (keep this)
+    const checklistItems = [
+        { id: 'c1', text: 'Implement network segmentation between Purdue Levels' },
+        { id: 'c2', text: 'Enforce least privilege access control for engineers and contractors' },
+        { id: 'c3', text: 'Deploy monitoring and anomaly detection on Level 0-2' },
+        { id: 'c4', text: 'Establish patch management process for OT systems' },
+        { id: 'c5', text: 'Control and monitor all remote access to ICS' },
+        { id: 'c6', text: 'Implement secure conduits between zones per IEC 62443' },
+        { id: 'c7', text: 'Enforce USB and removable media policies' },
+        { id: 'c8', text: 'Conduct regular ICS cybersecurity awareness training' }
+    ];
 
-        container.querySelectorAll('input[type="checkbox"]').forEach(cb => {
-            cb.addEventListener('change', updateProgress);
-        });
+    // Render checklist items
+    let html = '';
+    checklistItems.forEach(item => {
+        html += `
+            <div class="form-check mb-3">
+                <input class="form-check-input" type="checkbox" id="${item.id}">
+                <label class="form-check-label" for="${item.id}">
+                    ${item.text}
+                </label>
+            </div>
+        `;
+    });
+    container.innerHTML = html;
 
-        const resetAction = (e) => {
-            if (e) e.preventDefault();
-            container.querySelectorAll('input[type="checkbox"]').forEach(cb => cb.checked = false);
-            updateProgress();
-        };
+    // Now safely get all checkboxes (after they are rendered)
+    const checkboxes = container.querySelectorAll('input[type="checkbox"]');
 
-        const resetBtn = document.getElementById('reset-checklist');
-        if (resetBtn) {
-            resetBtn.addEventListener('click', resetAction);
+    const updateProgress = () => {
+        const totalControls = checkboxes.length;
+        const checked = container.querySelectorAll('input:checked').length;
+        const pct = totalControls > 0 ? (checked / totalControls) * 100 : 0;
+
+        const progressBar = document.getElementById('progress-bar');
+        const progressText = document.getElementById('progress-text');
+
+        if (progressBar) progressBar.style.width = pct + '%';
+        if (progressText) {
+            progressText.textContent = `${checked}/${totalControls} controls (${Math.round(pct)}%)`;
         }
 
-        window.resetChecklist = resetAction;
+        // Save state to localStorage
+        let state = {};
+        checkboxes.forEach(cb => {
+            state[cb.id] = cb.checked;
+        });
+        localStorage.setItem('icsChecklist', JSON.stringify(state));
+    };
+
+    // Load saved state from localStorage
+    const savedState = localStorage.getItem('icsChecklist');
+    if (savedState) {
+        const state = JSON.parse(savedState);
+        checkboxes.forEach(cb => {
+            if (state[cb.id] !== undefined) {
+                cb.checked = state[cb.id];
+            }
+        });
     }
 
-    console.log('✅ Full ICS Risk Hub Synchronized perfectly.');
-});
+    // Attach listeners
+    checkboxes.forEach(cb => {
+        cb.addEventListener('change', updateProgress);
+    });
+
+    // ==================== RESET WITH CONFIRMATION ====================
+    const resetChecklist = () => {
+        if (confirm("Are you sure you want to reset all compliance progress tracking values?")) {
+            checkboxes.forEach(cb => cb.checked = false);
+            localStorage.removeItem('icsChecklist');
+            updateProgress();
+            alert("✅ Checklist progress has been cleared successfully.");
+        }
+    };
+
+    window.resetChecklist = resetChecklist;
+
+    // Initial progress update
+    updateProgress();
+}
