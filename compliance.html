@@ -74,7 +74,16 @@
                 <div class="text-end">
                     <small class="text-light-emphasis">Progress</small>
                     <div class="progress mt-1" style="width: 250px; height: 12px;">
-                        <div id="progress-bar" class="progress-bar bg-warning" role="progressbar" style="width: 0%"></div>
+                        <div id="progress-bar" 
+                            class="progress-bar bg-warning" 
+                            role="progressbar" 
+                            style="width: 0%"
+                            aria-label="Compliance progress percentage"
+                            aria-valuemin="0"
+                            aria-valuemax="100"
+                            aria-valuenow="0">
+                        </div>
+
                     </div>
                     <small id="progress-text" class="text-warning">0/8 controls (0%)</small>
                 </div>

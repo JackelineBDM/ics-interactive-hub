@@ -24,27 +24,30 @@ document.addEventListener('DOMContentLoaded', () => {
         const resultsContent = document.getElementById('results-content');
         const submitBtn = document.getElementById('submit-assessment');
 
-        function renderQuestionnaire() {
-            let html = '<form id="risk-form">';
-            questions.forEach((q, index) => {
-                html += `
-                    <div class="question-row d-flex align-items-center justify-content-between mb-2">
-                        <p class="fw-semibold m-0">${index + 1}. ${q.text}</p>
-                        <div class="radio-options d-flex align-items-center flex-shrink-0">
-                            <div class="form-check form-check-inline m-0 me-3">
-                                <input class="form-check-input" type="radio" name="q${q.id}" value="yes" id="q${q.id}yes">
-                                <label class="form-check-label text-white" for="q${q.id}yes">Yes</label>
-                            </div>
-                            <div class="form-check form-check-inline m-0">
-                                <input class="form-check-input" type="radio" name="q${q.id}" value="no" id="q${q.id}no">
-                                <label class="form-check-label text-white" for="q${q.id}no">No</label>
-                            </div>
-                        </div>
-                    </div>`;
-            });
-            html += '</form>';
-            questionnaireContainer.innerHTML = html;
-        }
+function renderQuestionnaire() {
+    let html = '<form id="risk-form">';
+    
+    questions.forEach((q, index) => {
+        html += `
+            <div class="question-row mb-4 p-3 border border-warning rounded bg-dark">
+                <p class="fw-semibold mb-3">${index + 1}. ${q.text}</p>
+                
+                <div class="d-flex gap-4">
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="q${q.id}" value="yes" id="q${q.id}yes">
+                        <label class="form-check-label text-white" for="q${q.id}yes">Yes</label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="q${q.id}" value="no" id="q${q.id}no">
+                        <label class="form-check-label text-white" for="q${q.id}no">No</label>
+                    </div>
+                </div>
+            </div>`;
+    });
+    
+    html += '</form>';
+    questionnaireContainer.innerHTML = html;
+}
 
         function calculateScore() {
             let totalScore = 0;
