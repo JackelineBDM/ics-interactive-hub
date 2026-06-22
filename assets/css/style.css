@@ -235,3 +235,7 @@ input[type="search"]::placeholder,
     border-color: #e0b304 !important;
     color: #001427 !important;
 }
+/* Fix CLS on compliance page - reserve space for checklist */
+#checklist-container {
+    min-height: 380px;
+}
