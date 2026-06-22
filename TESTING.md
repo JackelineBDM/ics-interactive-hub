@@ -12,8 +12,8 @@
 
 Testing was conducted in two main phases:
 
-- **Automated Testing**: W3C HTML Validator, W3C CSS Validator, and Google Lighthouse audits.
-- **Manual Testing**: Systematic testing against all 8 User Stories, including edge cases, error handling, data persistence, and cross-device responsiveness.
+- **Automated Testing**: W3C HTML & CSS Validators and Google Lighthouse audits across all three pages.
+- **Manual Testing**: Systematic testing of all 8 User Stories, including edge cases, error handling, data persistence, accessibility, and responsive behaviour.
 
 All testing was performed on both the live GitHub Pages deployment and locally using VS Code Live Server to ensure consistency between development and production environments.
 
@@ -23,122 +23,101 @@ All testing was performed on both the live GitHub Pages deployment and locally u
 
 ### 2.1 Code Validation
 
-| Tool                    | Result     | Notes                                      | Evidence          |
-|-------------------------|------------|--------------------------------------------|-------------------|
-| W3C HTML Validator      | **Pass**   | No errors or warnings                      | Verified          |
-| W3C CSS Validator       | **Pass**   | No errors                                  | Verified          |
-| Browser Console         | **Clean**  | No JavaScript errors on any page           | Verified across all pages |
+| Tool                    | Result     | Notes                                      | Evidence     |
+|-------------------------|------------|--------------------------------------------|--------------|
+| W3C HTML Validator      | **Pass**   | No errors or warnings                      | Verified     |
+| W3C CSS Validator       | **Pass**   | No errors                                  | Verified     |
+| Browser Console         | **Clean**  | No JavaScript errors on any page           | Verified     |
 
-### 2.2 Google Lighthouse Audit (Live Site – 11 June 2026)
+### 2.2 Google Lighthouse Audit (Latest Results)
 
-| Page              | Performance | Accessibility | Best Practices | SEO  |
-|-------------------|-------------|---------------|----------------|------|
-| **index.html**    | **81**      | **97**        | **96**         | 100  |
-| **threats.html**  | **97**      | **94**        | **96**         | 100  |
-| **compliance.html** | **99**    | **92**        | **96**         | 100  |
+| Page              | Performance | Accessibility | Best Practices | SEO  | Notes |
+|-------------------|-------------|---------------|----------------|------|-------|
+| **index.html**    | **77**      | **97**        | **96**         | 100  | CLS = 0.631 (main issue) |
+| **threats.html**  | **89**      | **94**        | **96**         | 100  | Good overall |
+| **compliance.html** | **99**    | **98**        | **96**         | 100  | Excellent |
 
 **Reflections on Performance:**
 
-The Performance score on the main page (index.html) is 81. This is primarily due to:
-- Render-blocking resources from Bootstrap CSS and the Bootstrap Icons font (loaded from CDN).
-- Cumulative Layout Shift (CLS = 0.394) caused by the large Bootstrap Icons font (128 KiB) loading after the initial render.
+The Performance score on the homepage (`index.html`) remains the weakest area (77). The primary cause is **Cumulative Layout Shift (CLS = 0.631)**, triggered by the late loading of the Bootstrap Icons font (128 KB). 
 
-**Actions taken to mitigate:**
-- Added the `defer` attribute to both script tags.
-- Added `font-display: swap` to reduce layout shift from web fonts.
-- Added `preconnect` and `preload` hints for the Bootstrap Icons font.
+**Actions taken:**
+- Replaced the Bootstrap house icon with an inline SVG.
+- Removed the Bootstrap Icons CSS stylesheet entirely.
+- Added `preconnect`, `preload`, and `font-display: swap` hints.
+- Added a custom `@font-face` rule.
 
-While further improvements could be made by self-hosting fonts or using a lighter icon solution, these changes represent a conscious trade-off between development speed (using Bootstrap) and performance optimisation. The excellent Accessibility (97) and perfect SEO (100) scores across all pages demonstrate strong overall quality.
+Despite these efforts, CLS remains higher than ideal. This reflects a deliberate trade-off: using Bootstrap 5 enabled rapid development of a professional, accessible, and responsive interface suitable for plant managers. Further optimisation (such as self-hosting only the required icons or switching to a lighter icon solution) could be explored in future iterations.
 
-The two supporting pages (Threat Matrix and SL2 Checklist) achieved very high Performance scores (97 and 99), confirming that the core interactive features are well optimised.
+The supporting pages (`threats.html` and `compliance.html`) achieved strong Performance scores (89 and 99), confirming that the core interactive features are well optimised.
+
 ---
 
 ## 3. Manual Testing – User Stories
 
-All 8 User Stories were tested thoroughly. Evidence is provided through screenshots in Section 7.
+All 8 User Stories were tested thoroughly using **Given-When-Then** acceptance criteria.
 
-| #  | User Story                                                                 | Test Performed                                      | Expected Result                          | Actual Result                     | Status | Evidence |
-|----|----------------------------------------------------------------------------|-----------------------------------------------------|------------------------------------------|-----------------------------------|--------|----------|
-| 1  | Complete Risk Assessment questionnaire and receive instant risk score     | Answered all 8 questions and clicked Calculate     | Dynamic percentage + recommendation shown | Works correctly                   | PASS   | Screenshot 1 |
-| 2  | Search and filter threats by Purdue Level                                 | Used search bar + clicked filter buttons           | Real-time filtering + active button state | Works correctly                   | PASS   | Screenshot 2 |
-| 3  | Tick compliance controls and see live progress                            | Checked multiple controls                          | Progress bar updates in real time        | Works correctly                   | PASS   | Screenshot 3 |
-| 4  | Checklist progress persists after page refresh                            | Checked items → refreshed page                     | Progress and checkboxes retained         | Works correctly (`localStorage`)  | PASS   | -        |
-| 5  | Reset Checklist with confirmation                                         | Clicked Reset Checklist button                     | Confirmation dialog + success message    | Works correctly                   | PASS   | -        |
-| 6  | Empty state when searching for non-existent threat                        | Searched for non-existent threat                   | "No matching threats found" message      | Works correctly                   | PASS   | -        |
-| 7  | Save Assessment functionality                                             | Clicked "Save Assessment" button                   | Confirmation alert appears               | Works correctly                   | PASS   | -        |
-| 8  | Responsive design across devices                                          | Tested on desktop, tablet, and mobile view         | Usable and readable layout               | Works correctly                   | PASS   | Screenshot 4 |
-
----
-
-## 4. Responsive & Cross-Browser Testing
-
-| Environment              | Result     | Notes |
-|--------------------------|------------|-------|
-| Desktop – Chrome         | Excellent  | Full functionality |
-| Desktop – Firefox        | Excellent  | Full functionality |
-| Desktop – Safari         | Excellent  | Full functionality |
-| Mobile View (DevTools)   | Good       | All interactive elements usable |
-| Tablet View              | Good       | Layout remains clean and functional |
-
-**Key responsive techniques used:**
-- Bootstrap 5 grid system (`col-lg-7`, `col-lg-5`, `d-flex`)
-- Mobile-friendly touch targets
-- No horizontal scrolling on any screen size
+| #  | User Story                                                                 | Given                                                                 | When                                                                 | Then                                                                 | Status | Evidence |
+|----|----------------------------------------------------------------------------|-----------------------------------------------------------------------|----------------------------------------------------------------------|----------------------------------------------------------------------|--------|----------|
+| 1  | As a plant manager, I want to complete a Purdue Model questionnaire so I can receive an instant risk score | I am on the Risk Assessment page                                      | I answer all 8 questions and click "Calculate Risk Score"            | A dynamic percentage, risk level, and recommendation are displayed   | PASS   | Screenshot 1 |
+| 2  | As a user, I want to search and filter threats by Purdue Level             | I am on the Live Threat Matrix page                                   | I type in the search bar or click a Purdue Level filter button       | Results update in real time and the active filter is highlighted     | PASS   | Screenshot 2 |
+| 3  | As a compliance officer, I want to tick controls and see live progress     | I am on the SL2 Compliance Checklist page                             | I check or uncheck controls                                          | The progress bar and percentage update immediately                   | PASS   | Screenshot 3 |
+| 4  | As a user, I want my checklist progress saved across sessions              | I have checked several controls                                       | I refresh the page or return later                                   | My checked items and progress are retained                           | PASS   | -        |
+| 5  | As a cautious user, I want confirmation before resetting checklist data    | I have checked several controls                                       | I click the "Reset Checklist" button                                 | A confirmation dialog appears, and progress is cleared only if confirmed | PASS | -        |
+| 6  | As a user, I want clear feedback when no threats match my search           | I am on the Live Threat Matrix page                                   | I search for a non-existent threat                                   | A clear "No matching threats found" message is displayed             | PASS   | -        |
+| 7  | As a user, I want to save my risk assessment result                        | I have completed the questionnaire and received a score               | I click the "Save Assessment" button                                 | A confirmation message appears                                       | PASS   | -        |
+| 8  | As a visitor, I want the site to be fully responsive on mobile devices     | I view the site on mobile, tablet, and desktop                        | I interact with all features                                         | All features remain usable and visually consistent                   | PASS   | Screenshot 4 |
 
 ---
 
-## 5. Accessibility Considerations
+## 4. Bug Log
 
-- High contrast colour scheme (dark background with yellow accents)
-- Semantic HTML used throughout
-- Form inputs have associated labels
-- Keyboard navigation works on all interactive elements
-- Progress indicators are clearly visible
-
----
-
-## 6. Bug Log & Evaluation
-
-| Bug # | Description                                      | Severity | How it was discovered          | Fix Applied                                      | Evaluation / Lessons Learned |
-|-------|--------------------------------------------------|----------|--------------------------------|--------------------------------------------------|------------------------------|
-| 1     | Text hard to read on dark background             | High     | Manual visual inspection       | Added targeted CSS variables and `!important` overrides for better contrast | Improved understanding of contrast requirements in dark themes |
-| 2     | Calculate Risk Score button not responding       | High     | User testing                   | Ensured correct event listener attachment and DOM element targeting | Reinforced importance of verifying element selection in JavaScript |
-| 3     | Checklist reset had no confirmation              | Medium   | Edge case testing              | Added `confirm()` dialog + success alert         | Good defensive UX practice – always confirm destructive actions |
-| 4     | Checklist progress lost on page refresh          | Medium   | Functional testing             | Implemented `localStorage` persistence           | Data persistence significantly improves real-world usability |
-| 5     | Empty search state had poor visibility           | Low      | Edge case testing              | Added specific CSS styling for empty state row   | Empty states should be treated as first-class UI elements |
-
-**Overall Bug Evaluation:**  
-All identified bugs were functional or usability issues rather than critical logic errors. The fixes improved both reliability and user experience. No bugs remain in the final version.
+| #  | Bug Description                                      | Severity | How it was discovered          | How it was fixed                                                                 | Status |
+|----|------------------------------------------------------|----------|--------------------------------|----------------------------------------------------------------------------------|--------|
+| 1  | Calculate Risk Score button did nothing            | High     | Manual testing                 | Added proper event listener and input validation                                 | Fixed  |
+| 2  | Checklist reset button had no confirmation         | Medium   | Manual testing                 | Added `confirm()` dialog + success alert                                         | Fixed  |
+| 3  | Checklist progress lost on page refresh            | Medium   | Manual testing                 | Implemented `localStorage` persistence                                           | Fixed  |
+| 4  | Text was unreadable on dark background             | Medium   | Visual inspection + Lighthouse | Created custom CSS variables with high-contrast colours                          | Fixed  |
+| 5  | Heading order warning in Lighthouse                | Medium   | Automated testing              | Refactored dynamic questionnaire rendering to use semantic `<p>` tags            | Fixed  |
+| 6  | High CLS caused by Bootstrap Icons font            | High     | Lighthouse                     | Replaced icon with inline SVG and removed Bootstrap Icons CSS stylesheet         | In Progress |
 
 ---
 
-## 7. Evidence – Screenshots
+## 5. Evidence – Screenshots
 
-All screenshots below were taken directly from the **live deployed site** after final implementation. They provide visual proof that the core interactive features are functioning correctly.
+| Screenshot | Description                                      | File Name                     | User Story |
+|------------|--------------------------------------------------|-------------------------------|------------|
+| 1          | Risk Assessment results showing percentage and recommendation | `risk-results.png`            | US1        |
+| 2          | Live Threat Matrix with active Purdue Level filter active     | `threat-matrix-filter.png`    | US2        |
+| 3          | SL2 Checklist showing live progress bar                       | `checklist-progress.png`      | US3        |
+| 4          | Mobile responsive view of the homepage                        | `mobile-view.png`             | US8        |
 
-### 1. Risk Assessment Results
-**Description:** User completes the questionnaire and receives an instant risk score with recommendation.  
-![Risk Assessment Results](./screenshots/risk-results.png)
-
-### 2. Live Threat Matrix with Active Filter
-**Description:** Real-time search and Purdue Level filtering working correctly.  
-![Threat Matrix Filter](./screenshots/threat-matrix-filter.png)
-
-### 3. SL2 Compliance Checklist Progress
-**Description:** Live progress bar updating as controls are checked.  
-![Checklist Progress](./screenshots/checklist-progress.png)
-
-### 4. Mobile Responsive View
-**Description:** Risk Assessment page displayed in mobile view using browser DevTools.  
-![Mobile View](./screenshots/mobile-view.png)
+> **Note:** All screenshots are stored in the `/screenshots` folder.
 
 ---
 
-## 8. Conclusion
+## 6. Reflection on Technical Decisions
 
-The Interactive ICS Risk Assessment & Threat Mitigation Hub has been thoroughly tested through both automated and manual procedures. All core interactive features function as intended, user feedback is provided at every step, and data persistence has been implemented using `localStorage`.
+This project presented several important technical decisions that directly impacted the final quality:
 
-The testing process followed a structured approach aligned with the defined User Stories. All identified issues were resolved and documented. The project meets the requirements for **Distinction** in terms of functionality, usability, responsiveness, and documentation quality.
+**Use of Bootstrap 5**  
+Bootstrap enabled rapid development of a clean, responsive, and professional interface suitable for plant managers. However, it introduced render-blocking resources and a large icon font that negatively affected CLS. I mitigated this by removing the icon font entirely and using inline SVGs where possible. This trade-off between development speed and performance is something I would approach differently in a production system.
+
+**Client-side only architecture (localStorage)**  
+Storing checklist progress in `localStorage` was a deliberate decision to keep the tool lightweight and avoid any backend attack surface. While this meets the project requirements, it means data is device-specific. For a real industrial tool, this would need to be replaced with secure, authenticated backend storage.
+
+**Accessibility focus**  
+I invested significant time fixing colour contrast, adding ARIA labels, and improving heading structure. These changes improved Accessibility scores to 97–98. However, I acknowledge that full accessibility testing with screen readers would be required for a production system.
+
+Overall, the project successfully demonstrates strong frontend development skills while remaining faithful to the original TM470 research goals.
+
+---
+
+## 7. Conclusion
+
+The Interactive ICS Risk Assessment & Threat Mitigation Hub has been thoroughly tested. All core interactive features function as intended, user feedback is provided at every step, and data persistence has been implemented.
+
+While the Performance score on the homepage remains an area for further improvement, the project demonstrates strong technical understanding, clean code structure, and a professional approach to user-centred design.
 
 **Project Status: Ready for Distinction Submission**
 
