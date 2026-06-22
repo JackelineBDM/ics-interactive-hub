@@ -76,13 +76,17 @@ function renderQuestionnaire() {
             if (!resultsPlaceholder || !resultsContent) return;
             resultsPlaceholder.style.display = 'none';
             resultsContent.style.display = 'block';
-            resultsContent.innerHTML = `
-                <h2 class="display-1 fw-bold text-${scoreData.riskColor} text-center">${scoreData.percentage}%</h2>
-                <h4 class="text-${scoreData.riskColor} text-center">${scoreData.riskLevel}</h4>
-                <div class="alert alert-${scoreData.riskColor} mt-3">
-                    <strong>Recommendation:</strong> ${scoreData.recommendation}
-                </div>
-                <button onclick="saveAssessment()" class="btn btn-outline-light">Save Assessment</button>`;
+    
+        resultsContent.innerHTML = `
+            <p class="display-1 fw-bold text-${scoreData.riskColor} text-center mb-0">${scoreData.percentage}%</p>
+            <p class="h3 text-${scoreData.riskColor} text-center mb-3">${scoreData.riskLevel}</p>
+            
+            <div class="alert alert-${scoreData.riskColor} mt-3">
+                <strong>Recommendation:</strong> ${scoreData.recommendation}
+            </div>
+        
+        <button onclick="saveAssessment()" class="btn btn-outline-light">Save Assessment</button>
+    `;
         }
 
         if (submitBtn) {
