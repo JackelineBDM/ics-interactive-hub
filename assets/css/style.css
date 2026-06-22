@@ -239,3 +239,7 @@ input[type="search"]::placeholder,
 #checklist-container {
     min-height: 380px;
 }
+/* Reduce CLS on Threat Matrix page */
+#threat-table {
+    min-height: 420px;
+}
