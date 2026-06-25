@@ -239,28 +239,25 @@ input[type="search"]::placeholder,
 #checklist-container {
     min-height: 380px;
 }
-/* Reduce CLS on Threat Matrix page */
-#threat-table {
-    min-height: 420px;
-}
+
 /* =============================================
-   THREAT MATRIX TABLE - COMPACT VERSION
+   THREAT MATRIX TABLE - FINAL COMPACT FIX
    ============================================= */
 #threat-table {
     border-collapse: collapse !important;
+    margin-bottom: 0 !important;
 }
 
 #threat-table th,
 #threat-table td {
     padding-top: 6px !important;
     padding-bottom: 6px !important;
-    padding-left: 12px !important;
-    padding-right: 12px !important;
-    vertical-align: middle !important;
+    padding-left: 14px !important;
+    padding-right: 14px !important;
     line-height: 1.25 !important;
+    vertical-align: middle !important;
 }
 
-/* Remove extra row spacing */
 #threat-table tbody tr {
     border-bottom: 1px solid #3e444c;
 }
