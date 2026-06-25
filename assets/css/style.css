@@ -244,24 +244,23 @@ input[type="search"]::placeholder,
     min-height: 420px;
 }
 /* =============================================
-   FIX: Compact Threat Matrix Table
+   THREAT MATRIX TABLE - COMPACT VERSION
    ============================================= */
+#threat-table {
+    border-collapse: collapse !important;
+}
+
 #threat-table th,
 #threat-table td {
-    padding-top: 0.45rem !important;
-    padding-bottom: 0.45rem !important;
-    vertical-align: middle;
-    line-height: 1.3;
+    padding-top: 6px !important;
+    padding-bottom: 6px !important;
+    padding-left: 12px !important;
+    padding-right: 12px !important;
+    vertical-align: middle !important;
+    line-height: 1.25 !important;
 }
 
-/* Remove extra space between rows */
+/* Remove extra row spacing */
 #threat-table tbody tr {
     border-bottom: 1px solid #3e444c;
-}
-
-/* Make the table header tighter */
-#threat-table thead th {
-    padding-top: 0.6rem !important;
-    padding-bottom: 0.6rem !important;
-    font-weight: 600;
 }
