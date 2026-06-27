@@ -261,3 +261,8 @@ input[type="search"]::placeholder,
 #threat-table tbody tr {
     border-bottom: 1px solid #3e444c;
 }
+/* Fix CLS on Risk Assessment page */
+#questionnaire-container,
+#results-content {
+    min-height: 520px;
+}
