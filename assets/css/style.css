@@ -294,3 +294,12 @@ input[type="search"]::placeholder,
 #threat-body {
     min-height: 380px;
 }
+/* =============================================
+   FIX: Compact Threat Matrix Table (Normal Spacing)
+   ============================================= */
+#threat-table th,
+#threat-table td {
+    padding-top: 8px !important;
+    padding-bottom: 8px !important;
+    line-height: 1.3 !important;
+}
