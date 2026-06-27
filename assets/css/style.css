@@ -241,65 +241,21 @@ input[type="search"]::placeholder,
 }
 
 /* =============================================
-   THREAT MATRIX TABLE - FINAL COMPACT FIX
+   FINAL TABLE FIX - COMPACT + NO GAPS
    ============================================= */
-#threat-table {
-    border-collapse: collapse !important;
-    margin-bottom: 0 !important;
-}
-
+#threat-table,
 #threat-table th,
 #threat-table td {
-    padding-top: 6px !important;
-    padding-bottom: 6px !important;
-    padding-left: 14px !important;
-    padding-right: 14px !important;
-    line-height: 1.25 !important;
-    vertical-align: middle !important;
+    min-height: auto !important;
 }
 
-#threat-table tbody tr {
-    border-bottom: 1px solid #3e444c;
-}
-/* Fix CLS on Risk Assessment page */
-#questionnaire-container,
-#results-content {
-    min-height: 520px;
-}
-/* Final CLS fix for Threat Matrix */
-#threat-table {
-    min-height: 380px !important;
-}
-
-.card.bg-dark.border-warning {
-    min-height: 520px;
-}
-/* =============================================
-   DEFINITIVE CLS FIX - THREATS.HTML ONLY
-   ============================================= */
-
-/* Reserve solid space for the main card that contains the threat table */
-.card.bg-dark.border-warning:has(#threat-table) {
-    min-height: 620px !important;
-    contain: layout style;
-}
-
-/* Reserve space for the table itself */
-#threat-table {
-    min-height: 420px !important;
-    contain: layout style;
-}
-
-/* Prevent layout shifts while JavaScript populates rows */
-#threat-body {
-    min-height: 380px;
-}
-/* =============================================
-   FIX: Compact Threat Matrix Table (Normal Spacing)
-   ============================================= */
 #threat-table th,
 #threat-table td {
     padding-top: 8px !important;
     padding-bottom: 8px !important;
     line-height: 1.3 !important;
+}
+
+.card.bg-dark.border-warning:has(#threat-table) {
+    min-height: auto !important;
 }
