@@ -83,12 +83,24 @@ All 8 User Stories were tested using **Given-When-Then** acceptance criteria. Al
 
 All screenshots were taken from the **live deployed site**.
 
-| # | Screenshot | Description | Image |
-|---|------------|-------------|-------|
-| 1 | Risk Assessment with Results | Shows calculated risk score and recommendation | ![Risk Assessment Results](screenshots/risk-results.png) |
-| 2 | Threat Matrix with Active Filter | Purdue Level 0-1 filter applied | ![Threat Matrix Filter](screenshots/threat-matrix-filter.png) |
-| 3 | SL2 Compliance Checklist | Progress bar showing completed controls | ![Compliance Checklist Progress](screenshots/checklist-progress.png) |
-| 4 | Mobile Responsive View | Risk Assessment page viewed on mobile viewport | ![Mobile View](screenshots/mobile-view.png) |
+| # | Screenshot                        | Description                                              | File Name                    |
+|---|-----------------------------------|----------------------------------------------------------|------------------------------|
+| 1 | Risk Assessment with Results      | Shows calculated risk score and recommendation           | `risk-results.png`           |
+| 2 | Threat Matrix with Active Filter  | Purdue Level 0-1 filter applied                          | `threat-matrix-filter.png`   |
+| 3 | SL2 Compliance Checklist          | Progress bar showing completed controls                  | `checklist-progress.png`     |
+| 4 | Mobile Responsive View            | Risk Assessment page viewed on mobile viewport           | `mobile-view.png`            |
+
+### Screenshot 1: Risk Assessment Results
+![Risk Assessment Results](screenshots/risk-results.png)
+
+### Screenshot 2: Threat Matrix with Active Filter
+![Threat Matrix with Filter](screenshots/threat-matrix-filter.png)
+
+### Screenshot 3: SL2 Compliance Checklist Progress
+![Compliance Checklist](screenshots/checklist-progress.png)
+
+### Screenshot 4: Mobile Responsive View
+![Mobile View](screenshots/mobile-view.png)
 
 ---
 
