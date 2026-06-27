@@ -74,19 +74,28 @@ function renderQuestionnaire() {
 
         function renderResults(scoreData) {
             if (!resultsPlaceholder || !resultsContent) return;
-            resultsPlaceholder.style.display = 'none';
-            resultsContent.style.display = 'block';
-    
-        resultsContent.innerHTML = `
-            <p class="display-1 fw-bold text-${scoreData.riskColor} text-center mb-0">${scoreData.percentage}%</p>
-            <p class="h3 text-${scoreData.riskColor} text-center mb-3">${scoreData.riskLevel}</p>
             
-            <div class="alert alert-${scoreData.riskColor} mt-3">
-                <strong>Recommendation:</strong> ${scoreData.recommendation}
-            </div>
-        
-        <button onclick="saveAssessment()" class="btn btn-outline-light">Save Assessment</button>
-    `;
+            // Hide placeholder
+            resultsPlaceholder.style.display = 'none';
+            
+            // Show results area
+            resultsContent.style.display = 'block';
+            
+            // Determine color
+            let colorClass = (scoreData.riskColor === 'success') ? 'text-success' : 
+                            (scoreData.riskColor === 'warning') ? 'text-warning' : 'text-danger';
+
+            // Clear and inject cleanly
+            resultsContent.innerHTML = `
+                <div class="text-center">
+                    <h1 class="display-1 fw-bold ${colorClass}" style="font-size: 5rem;">${scoreData.percentage}%</h1>
+                    <h3 class="fw-bold ${colorClass}">${scoreData.riskLevel}</h3>
+                    <div class="alert alert-${scoreData.riskColor} mt-3">
+                        <strong>Recommendation:</strong> ${scoreData.recommendation}
+                    </div>
+                    <button onclick="saveAssessment()" class="btn btn-outline-light mt-2">Save Assessment</button>
+                </div>
+            `;
         }
 
         if (submitBtn) {
