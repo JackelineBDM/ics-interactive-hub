@@ -259,3 +259,29 @@ input[type="search"]::placeholder,
 .card.bg-dark.border-warning:has(#threat-table) {
     min-height: auto !important;
 }
+/* =============================================
+   FIX: index.html Layout Stability (CLS)
+   ============================================= */
+#questionnaire-container, 
+#results-content {
+    min-height: 600px !important; 
+}
+
+#results-placeholder {
+    display: block !important;
+}
+
+/* =============================================
+   FIX: Threats.html Layout Stability (CLS)
+   ============================================= */
+.card.bg-dark.border-warning {
+    min-height: 250px !important;
+    contain: content;
+}
+
+#threat-table th,
+#threat-table td {
+    padding-top: 8px !important;
+    padding-bottom: 8px !important;
+    line-height: 1.3 !important;
+}
