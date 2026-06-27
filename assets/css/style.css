@@ -266,3 +266,31 @@ input[type="search"]::placeholder,
 #results-content {
     min-height: 520px;
 }
+/* Final CLS fix for Threat Matrix */
+#threat-table {
+    min-height: 380px !important;
+}
+
+.card.bg-dark.border-warning {
+    min-height: 520px;
+}
+/* =============================================
+   DEFINITIVE CLS FIX - THREATS.HTML ONLY
+   ============================================= */
+
+/* Reserve solid space for the main card that contains the threat table */
+.card.bg-dark.border-warning:has(#threat-table) {
+    min-height: 620px !important;
+    contain: layout style;
+}
+
+/* Reserve space for the table itself */
+#threat-table {
+    min-height: 420px !important;
+    contain: layout style;
+}
+
+/* Prevent layout shifts while JavaScript populates rows */
+#threat-body {
+    min-height: 380px;
+}
