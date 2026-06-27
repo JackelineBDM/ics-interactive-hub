@@ -120,77 +120,79 @@ function renderQuestionnaire() {
     }
 
     // ====================== THREAT MATRIX (threats.html) ======================
-    if (document.getElementById('threat-body')) {
+if (document.getElementById('threat-body')) {
+    const threatsData = [
+        { threat: "Ransomware", description: "Malicious software that encrypts critical OT systems and demands payment.", purdueLevel: "0-1, 2", impact: "High", badgeColor: "danger" },
+        { threat: "Stuxnet-style Worm", description: "Targeted malware that damages physical industrial equipment (PLCs).", purdueLevel: "0-1", impact: "Critical", badgeColor: "danger" },
+        { threat: "Insider Threat", description: "Authorised personnel misusing access to alter control logic.", purdueLevel: "2, 3", impact: "Medium", badgeColor: "warning" },
+        { threat: "Phishing & Social Engineering", description: "Deceptive emails leading to credential theft or malware delivery.", purdueLevel: "3, 4-5", impact: "High", badgeColor: "danger" },
+        { threat: "DDoS Attack on SCADA", description: "Overwhelming supervisory systems causing loss of visibility.", purdueLevel: "2", impact: "High", badgeColor: "danger" },
+        { threat: "USB Malware Propagation", description: "Infected removable media bypassing air-gapped systems.", purdueLevel: "0-1", impact: "Critical", badgeColor: "danger" }
+    ];
 
-        const threatsData = [
-            { threat: "Ransomware", description: "Malicious software that encrypts critical OT systems and demands payment.", purdueLevel: "0-1, 2", impact: "High", badgeColor: "danger" },
-            { threat: "Stuxnet-style Worm", description: "Targeted malware that damages physical industrial equipment (PLCs).", purdueLevel: "0-1", impact: "Critical", badgeColor: "danger" },
-            { threat: "Insider Threat", description: "Authorised personnel misusing access to alter control logic.", purdueLevel: "2, 3", impact: "Medium", badgeColor: "warning" },
-            { threat: "Phishing & Social Engineering", description: "Deceptive emails leading to credential theft or malware delivery.", purdueLevel: "3, 4-5", impact: "High", badgeColor: "danger" },
-            { threat: "DDoS Attack on SCADA", description: "Overwhelming supervisory systems causing loss of visibility.", purdueLevel: "2", impact: "High", badgeColor: "danger" },
-            { threat: "USB Malware Propagation", description: "Infected removable media bypassing air-gapped systems.", purdueLevel: "0-1", impact: "Critical", badgeColor: "danger" }
-        ];
+    const threatBody = document.getElementById('threat-body');
+    const searchInput = document.getElementById('threat-search');
+    const filterButtons = document.querySelectorAll('.btn-outline-warning');
 
-        const tableBody = document.getElementById('threat-body');
-        const searchInput = document.getElementById('threat-search') || document.querySelector('input[type="search"]');
-        const filterButtons = document.querySelectorAll('.btn-outline-warning');
+    function renderThreats(filteredThreats) {
+        threatBody.innerHTML = '';
 
-        let currentFilter = 'All Levels';
-        let searchQuery = '';
-
-        function renderThreats(filteredData) {
-            if (!tableBody) return;
-            tableBody.innerHTML = '';
-
-            if (filteredData.length === 0) {
-                tableBody.innerHTML = `<tr><td colspan="4" class="text-center text-muted py-4">No matching threats found.</td></tr>`;
-                return;
-            }
-
-            filteredData.forEach(t => {
-                const row = `
-                    <tr>
-                        <td><strong>${t.threat}</strong></td>
-                        <td>${t.description}</td>
-                        <td><span class="badge bg-warning text-dark fw-bold">${t.purdueLevel}</span></td>
-                        <td><span class="badge bg-${t.badgeColor}">${t.impact}</span></td>
-                    </tr>`;
-                tableBody.innerHTML += row;
-            });
+        if (filteredThreats.length === 0) {
+            threatBody.innerHTML = `
+                <tr>
+                    <td colspan="4" class="text-center text-muted py-4">
+                        No matching threats found.
+                    </td>
+                </tr>
+            `;
+            return;
         }
 
-        function filterAndRender() {
-            const filtered = threatsData.filter(t => {
-                const matchesLevel = (currentFilter === 'All Levels') || t.purdueLevel.includes(currentFilter.replace('Level ', ''));
-                const matchesSearch = t.threat.toLowerCase().includes(searchQuery) || 
-                                      t.description.toLowerCase().includes(searchQuery);
-                return matchesLevel && matchesSearch;
-            });
-            renderThreats(filtered);
-        }
-
-        if (searchInput) {
-            searchInput.addEventListener('input', (e) => {
-                searchQuery = e.target.value.toLowerCase();
-                filterAndRender();
-            });
-        }
-
-        if (filterButtons.length > 0) {
-            filterButtons.forEach(btn => {
-                btn.addEventListener('click', () => {
-                    filterButtons.forEach(b => b.classList.remove('active'));
-                    btn.classList.add('active');
-                    currentFilter = btn.textContent.trim();
-                    filterAndRender();
-                });
-            });
-        }
-
-        // Initial render
-        renderThreats(threatsData);
+        filteredThreats.forEach(threat => {
+            const row = document.createElement('tr');
+            row.innerHTML = `
+                <td><strong>${threat.threat}</strong></td>
+                <td>${threat.description}</td>
+                <td><span class="badge bg-secondary">${threat.purdueLevel}</span></td>
+                <td><span class="badge bg-${threat.badgeColor}">${threat.impact}</span></td>
+            `;
+            threatBody.appendChild(row);
+        });
     }
 
+    // Initial render (already working for you)
+    renderThreats(threatsData);
+
+    // Search
+    if (searchInput) {
+        searchInput.addEventListener('input', () => {
+            const term = searchInput.value.toLowerCase().trim();
+            const filtered = threatsData.filter(t =>
+                t.threat.toLowerCase().includes(term) ||
+                t.description.toLowerCase().includes(term)
+            );
+            renderThreats(filtered);
+        });
+    }
+
+    // Filters
+    filterButtons.forEach(btn => {
+        btn.addEventListener('click', () => {
+            filterButtons.forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+
+            const level = btn.getAttribute('data-level');
+
+            if (level === 'all') {
+                renderThreats(threatsData);
+            } else {
+                const filtered = threatsData.filter(t => t.purdueLevel.includes(level));
+                renderThreats(filtered);
+            }
+        });
+    });
+    }
+    
     // ====================== SL2 COMPLIANCE CHECKLIST (compliance.html) ======================
     if (document.getElementById('checklist-container')) {
 
