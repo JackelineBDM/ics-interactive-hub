@@ -26,6 +26,11 @@ Testing was conducted in two main phases:
 - **Manual Testing**: Executed across user journeys using Given-When-Then criteria to verify interactive dynamic JS updates, real-time filtering combinations, storage exception handling (`try...catch` blocks), defensive UX alerts, and ARIA screen-reader compatibility.
 
 All testing was performed on both the local development environment and the live GitHub Pages site.
+
+### 2.2 When Each Testing Type Is Appropriate
+- **Automated testing** is used for checks that are repeatable and rule-based, such as HTML/CSS validation, JavaScript syntax checking and Lighthouse audits. It is fast, consistent and can be re-run after every change to catch regressions.
+
+- **Manual testing** is used where human judgement or real user behaviour matters, such as whether filters combine correctly, how the site behaves with blocked browser storage, and whether labels and live updates make sense for screen reader users. Automated tools cannot fully judge these.
 ---
 
 ## 3. Automated Testing Results
@@ -80,6 +85,17 @@ All 8 User Stories were tested using **Given-When-Then** acceptance criteria. Al
 | 6 | "Save Assessment" button triggered generic alert | Medium | Updated function to dynamically generate and download a plain-text assessment report Blob file | Fixed |
 | 7 | Search and Purdue Level filters operated independently | Medium | Combined search input and active button state into a unified `applyUnifiedFilters()` function | Fixed |
 | 8 | Accessibility gaps (radio labels & ARIA progress) | Medium | Added `<fieldset>`/`<legend>` to questionnaire form, dynamic `aria-valuenow` to progress bar, and `aria-live="polite"` to results container | Fixed |
+
+## 5.1 Tutor Feedback – Fixes and Retests (04/11/2026)
+
+| # | Issue | Fix | Retest | Result |
+|---|-------|-----|--------|--------|
+| 1 | Invalid `font-display` declaration in `body` rule (P2.1) | Removed the declaration from `style.css` | Re-ran the W3C CSS Validator on `style.css` | PASS – 0 errors |
+| 2 | Malformed checklist data / unavailable storage could cause an uncaught error (P2.3/P2.8) | Added a `safeStorage` helper so every storage read, write and remove is wrapped in `try...catch`; JSON parsing validated separately | Saved invalid JSON to `icsChecklist` and reloaded; blocked all cookies and reloaded | PASS – no uncaught errors, checklist still works |
+| 3 | "Save Assessment" showed a message without saving (P2.4) | Button now generates and downloads a `.txt` report file | Completed the questionnaire, clicked Save, opened the downloaded file | PASS – file downloads with correct score |
+| 4 | Search overrode the Purdue level filter (P2.4) | Combined both into `applyUnifiedFilters()` | Selected level 0-1 then searched "usb" and "phishing" | PASS – both filters apply together |
+| 5 | Accessibility gaps (P1.1) | `aria-valuenow` updates with progress; radios grouped in `fieldset`/`legend`; results area uses `aria-live="polite"` | Ticked checklist items and inspected the attribute in DevTools; submitted the calculator | PASS |
+
 ---
 
 ## 6. Evidence – Screenshots
