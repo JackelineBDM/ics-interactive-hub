@@ -231,13 +231,17 @@ document.addEventListener('DOMContentLoaded', () => {
             const totalControls = checkboxes.length;
             const checked = container.querySelectorAll('input:checked').length;
             const pct = totalControls > 0 ? (checked / totalControls) * 100 : 0;
+            const roundedPct = Math.round(pct);
 
             const progressBar = document.getElementById('progress-bar');
             const progressText = document.getElementById('progress-text');
 
-            if (progressBar) progressBar.style.width = pct + '%';
+            if (progressBar) {
+                progressBar.style.width = pct + '%';
+                progressBar.setAttribute('aria-valuenow', roundedPct);
+            }
             if (progressText) {
-                progressText.textContent = `${checked}/${totalControls} controls (${Math.round(pct)}%)`;
+                progressText.textContent = `${checked}/${totalControls} controls (${roundedPct}%)`;
             }
 
             // Fix #2: Save to localStorage safely inside try/catch

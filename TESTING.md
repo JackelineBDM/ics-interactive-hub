@@ -26,6 +26,11 @@ Testing was conducted in two phases:
 
 All testing was performed on both the local development environment and the live GitHub Pages site.
 
+### 2.1 Automated vs. Manual Testing Strategy
+
+- **Automated Testing**: Utilized for structural integrity, visual regression, syntax validation, and standard compliance using W3C HTML/CSS Validators, Node syntax checking (`node -c`), and Google Lighthouse CI audits.
+
+- **Manual Testing**: Executed across user journeys to evaluate dynamic JS updates, real-time filtering interactions, data persistence boundaries (`try...catch` storage failures), defensive UX alerts, and ARIA screen-reader behavior.
 ---
 
 ## 3. Automated Testing Results
@@ -76,7 +81,10 @@ All 8 User Stories were tested using **Given-When-Then** acceptance criteria. Al
 | 2 | Threat descriptions disappearing after filtering   | Medium   | Rewrote `renderThreats()` function with stable event handling              | Fixed  |
 | 3 | High CLS on Risk Assessment results panel          | Medium   | Reserved vertical space using `min-height` on results card                 | Fixed  |
 | 4 | Search/Filter incorrectly showing "No results"     | Medium   | Fixed filtering logic and initial render behaviour                         | Fixed  |
-
+| 5 | Storage crash on blocked cookies / private mode | High | Wrapped `localStorage` read and write calls in `try...catch` blocks with console warnings | Fixed |
+| 6 | "Save Assessment" button triggered generic alert | Medium | Updated function to dynamically generate and download a plain-text assessment report Blob file | Fixed |
+| 7 | Search and Purdue Level filters operated independently | Medium | Combined search input and active button state into a unified `applyUnifiedFilters()` function | Fixed |
+| 8 | Accessibility gaps (radio labels & ARIA progress) | Medium | Added `<fieldset>`/`<legend>` to questionnaire form, dynamic `aria-valuenow` to progress bar, and `aria-live="polite"` to results container | Fixed |
 ---
 
 ## 6. Evidence – Screenshots
