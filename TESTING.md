@@ -5,7 +5,7 @@
 **Author:** Jackeline Brooks Marcano  
 **Student ID:** E3413858  
 **Project Type:** Milestone Project 2 – Interactive Frontend Development  
-**Submission Goal:** Distinction
+**Status:** Resubmission following tutor feedback (04/11/2026)
 
 ---
 
@@ -29,19 +29,20 @@ All testing was performed on both the local development environment and the live
 
 ### 2.2 When Each Testing Type Is Appropriate
 - **Automated testing** is used for checks that are repeatable and rule-based, such as HTML/CSS validation, JavaScript syntax checking and Lighthouse audits. It is fast, consistent and can be re-run after every change to catch regressions.
-
 - **Manual testing** is used where human judgement or real user behaviour matters, such as whether filters combine correctly, how the site behaves with blocked browser storage, and whether labels and live updates make sense for screen reader users. Automated tools cannot fully judge these.
+
 ---
 
 ## 3. Automated Testing Results
 
 ### 3.1 Code Validation
 
-| Tool                    | Result     | Notes                                      |
-|-------------------------|------------|--------------------------------------------|
-| W3C HTML Validator      | **Pass**   | No errors or warnings                      |
-| W3C CSS Validator       | **Pass**   | No errors                                  |
-| Browser Console         | **Clean**  | No JavaScript errors on any page           |
+| Tool                    | Result     | Notes                                                        |
+|-------------------------|------------|--------------------------------------------------------------|
+| W3C HTML Validator      | **Pass**   | No errors or warnings                                        |
+| W3C CSS Validator       | **Pass**   | No errors (re-validated 04/11/2026 after removing `font-display`) |
+| Node syntax check       | **Pass**   | `node -c assets/js/script.js` reports no errors              |
+| Browser Console         | **Clean**  | No JavaScript errors on any page                             |
 
 ### 3.2 Google Lighthouse Audit (Final Results – 27 June 2026)
 
@@ -81,12 +82,13 @@ All 8 User Stories were tested using **Given-When-Then** acceptance criteria. Al
 | 2 | Threat descriptions disappearing after filtering | Medium | Rewrote `renderThreats()` function with stable event handling | Fixed |
 | 3 | High CLS on Risk Assessment results panel | Medium | Reserved vertical space using `min-height` on results card | Fixed |
 | 4 | Search/Filter incorrectly showing "No results" | Medium | Fixed filtering logic and initial render behaviour | Fixed |
-| 5 | Storage crash on blocked cookies / private mode | High | Wrapped `localStorage` read and write calls in `try...catch` blocks with console warnings | Fixed |
+| 5 | Storage crash on blocked cookies / private mode / malformed saved data | High | Added a `safeStorage` helper so every `localStorage` read, write and remove is wrapped in `try...catch`; saved JSON is parsed and validated separately and cleared if invalid | Fixed |
 | 6 | "Save Assessment" button triggered generic alert | Medium | Updated function to dynamically generate and download a plain-text assessment report Blob file | Fixed |
 | 7 | Search and Purdue Level filters operated independently | Medium | Combined search input and active button state into a unified `applyUnifiedFilters()` function | Fixed |
 | 8 | Accessibility gaps (radio labels & ARIA progress) | Medium | Added `<fieldset>`/`<legend>` to questionnaire form, dynamic `aria-valuenow` to progress bar, and `aria-live="polite"` to results container | Fixed |
+| 9 | Invalid `font-display` declaration in `body` rule (CSS validation) | Low | Removed the declaration from `style.css` and re-validated | Fixed |
 
-## 5.1 Tutor Feedback – Fixes and Retests (04/11/2026)
+### 5.1 Tutor Feedback – Fixes and Retests (04/11/2026)
 
 | # | Issue | Fix | Retest | Result |
 |---|-------|-----|--------|--------|
@@ -137,11 +139,9 @@ All screenshots were taken from the **live deployed site**.
 
 ## 8. Conclusion
 
-The Interactive ICS Risk Assessment & Threat Mitigation Hub has been thoroughly tested through both automated and manual procedures. All core interactive features function as intended, user feedback is provided at every step, and data persistence has been successfully implemented using `localStorage`.
+The Interactive ICS Risk Assessment & Threat Mitigation Hub has been tested through both automated and manual procedures. All core interactive features function as intended, user feedback is provided at every step, and data persistence is implemented using `localStorage` with safe handling for unavailable storage and malformed data.
 
-The project demonstrates strong frontend development skills, clean code structure, professional industrial-themed design, and meets the requirements for **Distinction**.
-
-**Project Status: Ready for Distinction Submission**
+Following tutor feedback on 04/11/2026, all six requested changes were implemented, retested and documented in sections 5 and 5.1.
 
 ---
 
