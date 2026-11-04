@@ -1,6 +1,6 @@
 // =============================================
-// ICS Risk Assessment Hub - COMPLETE & FIXED
-// All 3 pages fully working
+// ICS Risk Assessment Hub
+// All 3 pages: Risk Calculator, Threat Matrix, SL2 Checklist
 // =============================================
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -26,12 +26,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
         function renderQuestionnaire() {
             let html = '<form id="risk-form">';
-            
+
             questions.forEach((q, index) => {
                 html += `
                     <fieldset class="question-row mb-4 p-3 border border-warning rounded bg-dark">
                         <legend class="fw-semibold mb-3 text-white fs-6">${index + 1}. ${q.text}</legend>
-                        
+
                         <div class="d-flex gap-4">
                             <div class="form-check">
                                 <input class="form-check-input" type="radio" name="q${q.id}" value="yes" id="q${q.id}yes">
@@ -44,7 +44,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         </div>
                     </fieldset>`;
             });
-            
+
             html += '</form>';
             questionnaireContainer.innerHTML = html;
         }
@@ -74,11 +74,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
         function renderResults(scoreData) {
             if (!resultsPlaceholder || !resultsContent) return;
-            
+
             resultsPlaceholder.style.display = 'none';
             resultsContent.style.display = 'block';
-            
-            let colorClass = (scoreData.riskColor === 'success') ? 'text-success' : 
+
+            let colorClass = (scoreData.riskColor === 'success') ? 'text-success' :
                             (scoreData.riskColor === 'warning') ? 'text-warning' : 'text-danger';
 
             resultsContent.innerHTML = `
@@ -109,11 +109,11 @@ document.addEventListener('DOMContentLoaded', () => {
             submitBtn.disabled = false;
         }
 
-        // Fix #3: Genuine export file download instead of fake alert
+        // Genuine export: downloads the result as a text file
         window.saveAssessment = () => {
             const scoreData = calculateScore();
             const reportContent = `ICS RISK ASSESSMENT REPORT\n--------------------\nScore: ${scoreData.percentage}%\nRisk Level: ${scoreData.riskLevel}\nRecommendation: ${scoreData.recommendation}\nDate: ${new Date().toLocaleDateString()}`;
-            
+
             const blob = new Blob([reportContent], { type: 'text/plain' });
             const url = URL.createObjectURL(blob);
             const a = document.createElement('a');
@@ -169,7 +169,7 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         }
 
-        // Fix #4: Unified filter logic supporting search term + Purdue level simultaneously
+        // Unified filter: search term AND Purdue level are applied together
         function applyUnifiedFilters() {
             const term = searchInput ? searchInput.value.toLowerCase().trim() : '';
             const activeBtn = document.querySelector('.btn-outline-warning.active');
@@ -198,11 +198,25 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         });
     }
-    
+
     // ====================== SL2 COMPLIANCE CHECKLIST (compliance.html) ======================
     if (document.getElementById('checklist-container')) {
 
         const container = document.getElementById('checklist-container');
+
+        // Safe storage helper: every read/write/remove is wrapped in try/catch,
+        // so blocked or unavailable browser storage can never cause an uncaught error.
+        const safeStorage = {
+            get(key) {
+                try { return localStorage.getItem(key); } catch (e) { return null; }
+            },
+            set(key, value) {
+                try { localStorage.setItem(key, value); } catch (e) { console.warn('Storage unavailable: progress will not be saved.'); }
+            },
+            remove(key) {
+                try { localStorage.removeItem(key); } catch (e) { /* ignore */ }
+            }
+        };
 
         const checklistItems = [
             { id: 'c1', text: 'Implement network segmentation between Purdue Levels' },
@@ -244,36 +258,34 @@ document.addEventListener('DOMContentLoaded', () => {
                 progressText.textContent = `${checked}/${totalControls} controls (${roundedPct}%)`;
             }
 
-            // Fix #2: Save to localStorage safely inside try/catch
-            let state = {};
-            checkboxes.forEach(cb => state[cb.id] = cb.checked);
-            try {
-                localStorage.setItem('icsChecklist', JSON.stringify(state));
-            } catch (e) {
-                console.warn('LocalStorage save failed:', e);
-            }
+            // Save progress safely
+            const state = {};
+            checkboxes.forEach(cb => { state[cb.id] = cb.checked; });
+            safeStorage.set('icsChecklist', JSON.stringify(state));
         };
 
-        // Fix #2: Load saved state safely inside try/catch
-        try {
-            const savedState = localStorage.getItem('icsChecklist');
-            if (savedState) {
+        // Load saved progress safely (handles blocked storage AND malformed data)
+        const savedState = safeStorage.get('icsChecklist');
+        if (savedState) {
+            try {
                 const state = JSON.parse(savedState);
-                checkboxes.forEach(cb => {
-                    if (state[cb.id] !== undefined) cb.checked = state[cb.id];
-                });
+                if (state && typeof state === 'object') {
+                    checkboxes.forEach(cb => {
+                        if (typeof state[cb.id] === 'boolean') cb.checked = state[cb.id];
+                    });
+                }
+            } catch (e) {
+                console.warn('Saved checklist data was invalid and has been cleared.');
+                safeStorage.remove('icsChecklist');
             }
-        } catch (e) {
-            console.warn('LocalStorage data could not be parsed:', e);
-            localStorage.removeItem('icsChecklist');
         }
 
         checkboxes.forEach(cb => cb.addEventListener('change', updateProgress));
 
         const resetChecklist = () => {
             if (confirm("Are you sure you want to reset all compliance progress tracking values?")) {
-                checkboxes.forEach(cb => cb.checked = false);
-                localStorage.removeItem('icsChecklist');
+                checkboxes.forEach(cb => { cb.checked = false; });
+                safeStorage.remove('icsChecklist');
                 updateProgress();
                 alert("Checklist progress has been cleared successfully.");
             }
