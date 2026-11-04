@@ -32,10 +32,12 @@ Demonstrate strong interactive frontend development skills, clean code architect
 
 ## Key Features & Interactivity
 
-- **Risk Calculator** — 8 weighted Purdue Model questions with real-time scoring, input validation, and dynamic results panel.
-- **Live Threat Matrix** — Real-time search and Purdue Level filtering with active state indicators.
+- **Risk Calculator** — 8 weighted Purdue Model questions with real-time scoring, input validation, and a dynamic results panel. Results can be saved with **Save Assessment**, which downloads a plain-text report file.
+- **Live Threat Matrix** — Real-time search and Purdue Level filtering. The search term and the selected level are applied **together**, with active state indicators.
 - **SL2 Compliance Checklist** — 8 controls with live progress tracking, `localStorage` persistence, and confirmation on reset.
-- **Defensive UX** — Every user action provides clear feedback through alerts, loading states, and empty states.
+- **Safe storage handling** — All `localStorage` reads, writes and removals are wrapped in `try...catch`, so blocked or unavailable browser storage and malformed saved data cannot cause an uncaught JavaScript error.
+- **Accessibility** — Questionnaire radio buttons are grouped with `fieldset`/`legend`, the progress bar's `aria-valuenow` updates as controls are completed, and the dynamic results area uses `aria-live` so changes are announced to screen readers.
+- **Defensive UX** — User actions provide clear feedback through alerts and empty states.
 
 ---
 
@@ -58,15 +60,18 @@ All 8 User Stories were implemented and tested using Given-When-Then acceptance 
 
 ## Testing Summary
 
-Comprehensive testing was performed, including:
+Testing performed:
 
 - W3C HTML & CSS validation (Pass)
+- Node syntax check of `script.js`
 - Google Lighthouse audits across all three pages
 - Full manual testing of all 8 User Stories
 - Cross-device and cross-browser testing
-- Edge case and error state handling
+- Edge case and error state handling (malformed saved data, unavailable storage, combined search and filter)
 
-**Final Lighthouse Scores (27 June 2026)**
+**Tutor feedback (04/11/2026):** all requested changes were implemented, retested and recorded in [`TESTING.md`](TESTING.md), sections 2.2 (automated vs manual testing) and 5.1 (fixes and retests).
+
+**Lighthouse Scores (27 June 2026)**
 
 | Page                  | Performance | Accessibility | Best Practices | SEO  |
 |-----------------------|-------------|---------------|----------------|------|
@@ -91,9 +96,7 @@ To run locally:
 
 ## Project Status
 
-This project is **complete** and has been thoroughly tested. All interactive features are functional, the interface is responsive, and the application meets the requirements for **Distinction**.
-
-**Status: Ready for Distinction Submission**
+Resubmitted on 04/11/2026 following tutor feedback. All interactive features are functional, the interface is responsive, and all requested fixes have been applied, retested and documented.
 
 ---
 
