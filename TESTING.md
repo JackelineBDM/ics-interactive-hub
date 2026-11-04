@@ -19,18 +19,13 @@ The objective of testing was to verify functionality, usability, responsiveness,
 
 ## 2. Testing Methodology
 
-Testing was conducted in two phases:
-
-- **Automated Testing**: W3C validators, Google Lighthouse audits, and browser console analysis.
-- **Manual Testing**: Systematic testing of all 8 User Stories using Given-When-Then criteria, edge cases, error handling, and cross-device/browser verification.
-
-All testing was performed on both the local development environment and the live GitHub Pages site.
+Testing was conducted in two main phases:
 
 ### 2.1 Automated vs. Manual Testing Strategy
+- **Automated Testing**: Used for standard syntax validation, structural integrity, and performance audits via W3C HTML/CSS Validators, Node syntax checking (`node -c`), and Google Lighthouse CI audits.
+- **Manual Testing**: Executed across user journeys using Given-When-Then criteria to verify interactive dynamic JS updates, real-time filtering combinations, storage exception handling (`try...catch` blocks), defensive UX alerts, and ARIA screen-reader compatibility.
 
-- **Automated Testing**: Utilized for structural integrity, visual regression, syntax validation, and standard compliance using W3C HTML/CSS Validators, Node syntax checking (`node -c`), and Google Lighthouse CI audits.
-
-- **Manual Testing**: Executed across user journeys to evaluate dynamic JS updates, real-time filtering interactions, data persistence boundaries (`try...catch` storage failures), defensive UX alerts, and ARIA screen-reader behavior.
+All testing was performed on both the local development environment and the live GitHub Pages site.
 ---
 
 ## 3. Automated Testing Results
@@ -75,12 +70,12 @@ All 8 User Stories were tested using **Given-When-Then** acceptance criteria. Al
 
 ## 5. Bug Log
 
-| # | Issue                                              | Severity | Resolution                                                                 | Status |
-|---|----------------------------------------------------|----------|----------------------------------------------------------------------------|--------|
-| 1 | Footer missing on `threats.html`                   | Medium   | Added complete footer section to the page                                  | Fixed  |
-| 2 | Threat descriptions disappearing after filtering   | Medium   | Rewrote `renderThreats()` function with stable event handling              | Fixed  |
-| 3 | High CLS on Risk Assessment results panel          | Medium   | Reserved vertical space using `min-height` on results card                 | Fixed  |
-| 4 | Search/Filter incorrectly showing "No results"     | Medium   | Fixed filtering logic and initial render behaviour                         | Fixed  |
+| # | Issue | Severity | Resolution | Status |
+|---|---|---|---|---|
+| 1 | Footer missing on `threats.html` | Medium | Added complete footer section to the page | Fixed |
+| 2 | Threat descriptions disappearing after filtering | Medium | Rewrote `renderThreats()` function with stable event handling | Fixed |
+| 3 | High CLS on Risk Assessment results panel | Medium | Reserved vertical space using `min-height` on results card | Fixed |
+| 4 | Search/Filter incorrectly showing "No results" | Medium | Fixed filtering logic and initial render behaviour | Fixed |
 | 5 | Storage crash on blocked cookies / private mode | High | Wrapped `localStorage` read and write calls in `try...catch` blocks with console warnings | Fixed |
 | 6 | "Save Assessment" button triggered generic alert | Medium | Updated function to dynamically generate and download a plain-text assessment report Blob file | Fixed |
 | 7 | Search and Purdue Level filters operated independently | Medium | Combined search input and active button state into a unified `applyUnifiedFilters()` function | Fixed |
